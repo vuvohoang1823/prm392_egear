@@ -1,4 +1,4 @@
-package com.example.egear.customer.cart.product;
+package com.example.egear.customer.products;
 
 public class ProductList {
 }

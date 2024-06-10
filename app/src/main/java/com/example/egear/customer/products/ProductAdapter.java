@@ -22,6 +22,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.products = products;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Product product, int position);
+    }
+
+    private ProductAdapter.OnItemClickListener listener;
+
+    public void setOnItemClickListener(ProductAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,10 +47,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = products.get(position);
         holder.productName.setText(product.getName());
-        holder.productPrice.setText(product.getPrice());
+        holder.productPrice.setText(product.getPrice() + " $");
         holder.productCategory.setText(product.getCategory());
 //        holder.productStockQuantity.setText(String.valueOf(product.getStockQuantity()));
 //        holder.productImage.setImageResource(R.drawable.ic_launcher_background);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(product, holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override

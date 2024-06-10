@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.Egear" parent="Base.Theme.Egear" />
+    <style name="RoundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:elevation">50dp</item>
+    </style>
 </resources>

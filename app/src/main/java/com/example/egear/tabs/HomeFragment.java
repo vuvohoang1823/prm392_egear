@@ -1,18 +1,24 @@
 package com.example.egear.tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.Toast;
 
 import com.example.egear.R;
 import com.example.egear.customer.products.Product;
 import com.example.egear.customer.products.ProductAdapter;
+import com.example.egear.customer.products.ProductDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +27,8 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<Product> products;
     ProductAdapter adapter;
+    Button btn1, btn2, btn3, btn4, btn5;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,15 +42,88 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.product_recycler_view);
         getProducts();
         adapter = new ProductAdapter(products);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
+
+        btn1 = view.findViewById(R.id.button1);
+        btn2 = view.findViewById(R.id.button2);
+        btn3 = view.findViewById(R.id.button3);
+        btn4 = view.findViewById(R.id.button4);
+        btn5 = view.findViewById(R.id.button5);
+
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product, int position) {
+                Intent intent = new Intent(getActivity(), ProductDetail.class);
+                intent.putExtra("product", product);
+                startActivity(intent);
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unSelectAllButtons();
+                lookSelectedButton(btn1);
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unSelectAllButtons();
+                lookSelectedButton(btn2);
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unSelectAllButtons();
+                lookSelectedButton(btn3);
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unSelectAllButtons();
+                lookSelectedButton(btn4);
+            }
+        });
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unSelectAllButtons();
+                lookSelectedButton(btn5);
+            }
+        });
     }
 
     private void getProducts() {
         products = new ArrayList<>();
-        products.add(new Product("1", "Product 1", "100", "Category 1", 10));
-        products.add(new Product("2", "Product 2", "200", "Category 2", 20));
-        products.add(new Product("3", "Product 3", "300", "Category 3", 30));
-        products.add(new Product("4", "Product 4", "400", "Category 4", 40));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description1", "100", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description2", "200", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description3", "300", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description4", "400", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description5", "500", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description6", "600", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description7", "700", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description8", "800", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description9", "900", "Mouse", 10));
+        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description10", "1000", "Mouse", 10));
+    }
+
+    private void lookSelectedButton(Button button) {
+        button.setBackgroundColor(getResources().getColor(R.color.cyan));
+    }
+
+    private void lookUnSelectedButton(Button button) {
+        button.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    private void unSelectAllButtons() {
+        lookUnSelectedButton(btn1);
+        lookUnSelectedButton(btn2);
+        lookUnSelectedButton(btn3);
+        lookUnSelectedButton(btn4);
+        lookUnSelectedButton(btn5);
     }
 }

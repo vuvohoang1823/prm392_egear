@@ -5,20 +5,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.example.egear.R;
 import com.example.egear.customer.products.Product;
 import com.example.egear.customer.products.ProductAdapter;
 import com.example.egear.customer.products.ProductDetail;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,7 @@ public class HomeFragment extends Fragment {
     List<Product> products;
     ProductAdapter adapter;
     Button btn1, btn2, btn3, btn4, btn5;
+    ImageView filterButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
         btn3 = view.findViewById(R.id.button3);
         btn4 = view.findViewById(R.id.button4);
         btn5 = view.findViewById(R.id.button5);
+        filterButton = view.findViewById(R.id.filterBtn);
 
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
@@ -93,6 +94,16 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 unSelectAllButtons();
                 lookSelectedButton(btn5);
+            }
+        });
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_sheet_filter, null);
+                bottomSheetDialog.setContentView(view);
+                bottomSheetDialog.show();
             }
         });
     }

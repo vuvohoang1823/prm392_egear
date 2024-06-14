@@ -2,56 +2,72 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageViewImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:padding="10dp"
-        android:src="@mipmap/ic_launcher"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="175dp"
+        android:layout_height="185dp"
+        android:src="@drawable/mouse_sample"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="174dp"
         android:layout_height="51dp"
         android:layout_margin="10dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="227dp"
+        android:gravity="center_vertical"
         android:text="Name"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageViewImage"
-        tools:layout_editor_absoluteY="10dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewImage" />
 
     <TextView
         android:id="@+id/textViewCategory"
         android:layout_width="174dp"
-        android:layout_height="32dp"
+        android:layout_height="30dp"
         android:layout_margin="10dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="227dp"
+        android:gravity="center_vertical"
         android:text="Category"
-        android:textColor="#0A38E1"
+        android:textColor="#5C5C5C"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageViewImage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
     <TextView
         android:id="@+id/textViewPrice"
-        android:layout_width="60dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="36dp"
-        android:gravity="center"
+        android:layout_width="173dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
         android:text="Price"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewCategory"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategory" />
+
+<!--    <com.google.android.material.imageview.ShapeableImageView-->
+<!--        android:id="@+id/imageViewAddToCart"-->
+<!--        android:layout_width="43dp"-->
+<!--        android:layout_height="43dp"-->
+<!--        android:layout_marginTop="152dp"-->
+<!--        android:layout_marginEnd="0dp"-->
+<!--        android:background="@color/light_gray"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:shapeAppearanceOverlay="@style/RoundedImageView"-->
+<!--        app:srcCompat="@drawable/ic_action_cart" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

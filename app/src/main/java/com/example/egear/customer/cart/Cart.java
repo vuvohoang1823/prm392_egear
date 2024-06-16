@@ -1,6 +1,8 @@
 package com.example.egear.customer.cart;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable {
    private String name;
    private double price;
    private int quantity;

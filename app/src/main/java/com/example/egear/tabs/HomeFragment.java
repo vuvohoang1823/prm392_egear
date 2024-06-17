@@ -1,6 +1,7 @@
 package com.example.egear.tabs;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import com.example.egear.R;
 import com.example.egear.customer.products.Product;
 import com.example.egear.customer.products.ProductAdapter;
 import com.example.egear.customer.products.ProductDetail;
+import com.example.egear.customer.products.ProductResponse;
 import com.example.egear.customer.products.ProductService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.product_recycler_view);
         getProducts();
+        System.out.println(products);
         adapter = new ProductAdapter(products);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(adapter);
@@ -117,6 +120,20 @@ public class HomeFragment extends Fragment {
 
     private void getProducts() {
         products = new ArrayList<>();
+//        List<Product> products = new ArrayList<>();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", getActivity().MODE_PRIVATE);
+        String token = sharedPreferences.getString("accessToken", "");
+//        products = new ArrayList<>();
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description1", "100", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description2", "200", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description3", "300", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description4", "400", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description5", "500", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description6", "600", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description7", "700", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description8", "800", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description9", "900", "Mouse", 10));
+//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description10", "1000", "Mouse", 10));
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:9999/api/v1/")
@@ -124,31 +141,32 @@ public class HomeFragment extends Fragment {
                 .build();
 
         ProductService jsonPlaceholder = retrofit.create(ProductService.class);
-        Call<List<Product>> call = jsonPlaceholder.getProducts();
-        call.enqueue(new Callback<List<Product>>() {
+        Call<ProductResponse> call = jsonPlaceholder.getProducts("Bearer " + token);
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 if(!response.isSuccessful()) {
                     System.out.println("Code: " + response.code());
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description1", "100", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description2", "200", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description3", "300", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description4", "400", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description5", "500", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description6", "600", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description7", "700", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description8", "800", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description9", "900", "Mouse", 10));
-                    products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description10", "1000", "Mouse", 10));
                     return;
                 }
-                System.out.println(response.body());
-                products = new ArrayList<>(response.body());
+//                System.out.println(response.body().getData());
+                products.addAll(response.body().getData());
+                adapter = new ProductAdapter(products);
+                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                recyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Product product, int position) {
+                        Intent intent = new Intent(getActivity(), ProductDetail.class);
+                        intent.putExtra("product", product);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                System.out.println("Error Occurred");
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
             }
         });
     }

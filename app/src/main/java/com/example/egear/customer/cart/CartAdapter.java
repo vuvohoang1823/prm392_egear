@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.egear.R;
+import com.example.egear.room.AppDatabase;
+import com.example.egear.room.CartDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +23,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
    private Context context;
    private List<Cart> cartItemList;
    private List<Cart> selectedItems = new ArrayList<>();
+   private AppDatabase db;
 
    public CartAdapter(Context context, List<Cart> cartItemList) {
       this.context = context;
       this.cartItemList = cartItemList;
+   }
+   public CartAdapter(Context context, List<Cart> cartItemList, AppDatabase db) {
+      this.context = context;
+      this.cartItemList = cartItemList;
+      this.db = db;
    }
 
    @NonNull
@@ -67,6 +76,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
       holder.buttonRemove.setOnClickListener(v -> {
          cartItemList.remove(position);
          selectedItems.remove(cartItem);
+
+         db = Room.databaseBuilder(context, AppDatabase.class, "cart").allowMainThreadQueries().build();
+         com.example.egear.room.Cart cart = new com.example.egear.room.Cart();
+         cart.setName(cartItem.getName());
+         cart.setPrice(String.valueOf(cartItem.getPrice()));
+         db.getCartDAO().delete(cart);
+
          notifyItemRemoved(position);
          notifyItemRangeChanged(position, cartItemList.size());
       });

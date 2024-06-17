@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
@@ -18,6 +19,11 @@
         <activity android:name=".customer.combo.ComboDetail"/>
         <activity android:name=".MainActivity"/>
         <activity
+            android:name=".customer.OrderActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Egear" />
+        <activity
+            android:name=".MainActivity"
             android:name=".auth.Login"
             android:exported="true">
             <intent-filter>

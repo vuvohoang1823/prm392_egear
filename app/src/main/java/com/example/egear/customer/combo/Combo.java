@@ -1,34 +1,30 @@
-package com.example.egear.customer.products;
+package com.example.egear.customer.combo;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Combo implements Serializable{
     private Long id;
     private String name;
     private String description;
     private String price;
     private String image;
-    private String category;
-    private int stockQuantity;
+    private int percentDiscount;
 
-    public Product(Long id, String name, String description, String price, String image, String category, int stockQuantity) {
+    public Combo(Long id, String name, String description, String price, String image, int percentDiscount) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
-        this.category = category;
-        this.stockQuantity = stockQuantity;
+        this.percentDiscount = percentDiscount;
     }
 
-    public Product(String name, String description, String price, String category, int stockQuantity) {
+    public Combo(String name, String description, String price, int percentDiscount) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = category;
-        this.stockQuantity = stockQuantity;
+        this.percentDiscount = percentDiscount;
     }
-
 
     public Long getId() {
         return id;
@@ -70,19 +66,11 @@ public class Product implements Serializable {
         this.image = image;
     }
 
-    public String getCategory() {
-        return category;
+    public int getPercentDiscount() {
+        return percentDiscount;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void setPercentDiscount(int percentDiscount) {
+        this.percentDiscount = percentDiscount;
     }
 }

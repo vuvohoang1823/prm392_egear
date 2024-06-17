@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_item"
+    android:elevation="10dp"
+    android:layout_margin="10dp">
 
     <ImageView
         android:id="@+id/imageViewImage"
@@ -59,15 +62,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCategory" />
 
-<!--    <com.google.android.material.imageview.ShapeableImageView-->
-<!--        android:id="@+id/imageViewAddToCart"-->
-<!--        android:layout_width="43dp"-->
-<!--        android:layout_height="43dp"-->
-<!--        android:layout_marginTop="152dp"-->
-<!--        android:layout_marginEnd="0dp"-->
-<!--        android:background="@color/light_gray"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:shapeAppearanceOverlay="@style/RoundedImageView"-->
-<!--        app:srcCompat="@drawable/ic_action_cart" />-->
+    <!--    <com.google.android.material.imageview.ShapeableImageView-->
+    <!--        android:id="@+id/imageViewAddToCart"-->
+    <!--        android:layout_width="43dp"-->
+    <!--        android:layout_height="43dp"-->
+    <!--        android:layout_marginTop="152dp"-->
+    <!--        android:layout_marginEnd="0dp"-->
+    <!--        android:background="@color/light_gray"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:shapeAppearanceOverlay="@style/RoundedImageView"-->
+    <!--        app:srcCompat="@drawable/ic_action_cart" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,15 +8,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.egear.R;
+import com.example.egear.room.AppDatabase;
+import com.example.egear.room.Cart;
+import com.example.egear.room.CartDAO;
 import com.example.egear.tabs.HomeFragment;
+
+import java.util.List;
 
 public class ProductDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_product);
+        AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "cart").allowMainThreadQueries().build();
 
         Intent intent = getIntent();
         Product product = (Product) intent.getSerializableExtra("product");
@@ -35,6 +42,28 @@ public class ProductDetail extends AppCompatActivity {
         productCategory.setText(product.getCategory());
 //        productStockQuantity.setText(String.valueOf(product.getStockQuantity()));
         productDescription.setText(product.getDescription());
+
+        CartDAO cartDAO = db.getCartDAO();
+        Button addToCart = (Button) findViewById(R.id.btnAddToCart);
+
+        List<Cart> carts = cartDAO.getCarts();
+        for (Cart cart : carts) {
+            if (cart.getId().equals(product.getId())) {
+                addToCart.setEnabled(false);
+            }
+        }
+
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartDAO.insert(new Cart(product.getName(), product.getDescription(), product.getPrice(), product.getCategory(), product.getStockQuantity()));
+
+                List<Cart> carts = cartDAO.getCarts();
+                System.out.println(carts);
+                addToCart.setEnabled(false);
+                finish();
+            }
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
 
     <ImageView
         android:id="@+id/btnBack"
@@ -26,9 +27,9 @@
         app:srcCompat="@drawable/baseline_bookmark_border_24" />
 
     <ImageView
-        android:id="@+id/productImage"
-        android:layout_width="411dp"
-        android:layout_height="420dp"
+        android:id="@+id/comboImage"
+        android:layout_width="match_parent"
+        android:layout_height="322dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
         app:srcCompat="@drawable/mouse_sample" />
 
     <TextView
-        android:id="@+id/productName"
+        android:id="@+id/comboName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -45,10 +46,10 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage" />
+        app:layout_constraintTop_toBottomOf="@+id/comboImage" />
 
     <TextView
-        android:id="@+id/productPrice"
+        android:id="@+id/comboPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -57,10 +58,20 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage" />
+        app:layout_constraintTop_toBottomOf="@+id/comboImage" />
 
     <TextView
-        android:id="@+id/productDescription"
+        android:id="@+id/comboPercentDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Percent discount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comboName" />
+
+    <TextView
+        android:id="@+id/comboDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -68,27 +79,32 @@
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage" />
+        app:layout_constraintTop_toBottomOf="@+id/comboImage" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAddToCart"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/related_products"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addToCart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:text="Add to Cart"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_border"
+        android:text="Add to Cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/productCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:text="Category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

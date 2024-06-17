@@ -1,8 +1,13 @@
-package com.example.egear.customer.products;
+package com.example.egear.room;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class Product implements Serializable {
+@Entity(tableName = "cart")
+public class Cart {
+    @PrimaryKey
+    @NonNull
     private Long id;
     private String name;
     private String description;
@@ -11,24 +16,15 @@ public class Product implements Serializable {
     private String category;
     private int stockQuantity;
 
-    public Product(Long id, String name, String description, String price, String image, String category, int stockQuantity) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-        this.category = category;
-        this.stockQuantity = stockQuantity;
+    public Cart() {
     }
-
-    public Product(String name, String description, String price, String category, int stockQuantity) {
+    public Cart(String name, String description, String price, String category, int stockQuantity) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.stockQuantity = stockQuantity;
     }
-
 
     public Long getId() {
         return id;

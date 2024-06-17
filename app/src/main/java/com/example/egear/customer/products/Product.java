@@ -85,4 +85,17 @@ public class Product implements Serializable {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                ", image='" + image + '\'' +
+                ", category='" + category + '\'' +
+                ", stockQuantity=" + stockQuantity +
+                '}';
+    }
 }

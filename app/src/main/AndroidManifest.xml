@@ -18,12 +18,11 @@
         <activity android:name=".customer.products.ProductDetail"/>
         <activity android:name=".customer.combo.ComboDetail"/>
         <activity android:name=".MainActivity"/>
+<!--        <activity-->
+<!--            android:name=".customer.OrderActivity"-->
+<!--            android:exported="false"-->
+<!--            android:theme="@style/Theme.Egear" />-->
         <activity
-            android:name=".customer.OrderActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Egear" />
-        <activity
-            android:name=".MainActivity"
             android:name=".auth.Login"
             android:exported="true">
             <intent-filter>

@@ -48,4 +48,6 @@ dependencies {
     implementation(libs.retrofitConverterGson)
     implementation(libs.room)
     annotationProcessor(libs.roomCompiler)
+    implementation(libs.glide)
+    annotationProcessor(libs.glideCompiler)
 }

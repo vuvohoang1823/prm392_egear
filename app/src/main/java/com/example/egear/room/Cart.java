@@ -11,19 +11,22 @@ public class Cart {
     private Long id;
     private String name;
     private String description;
-    private String price;
+    private Long price;
     private String image;
     private String category;
-    private int stockQuantity;
+    private int quantity;
 
     public Cart() {
     }
-    public Cart(String name, String description, String price, String category, int stockQuantity) {
+
+    public Cart(Long id, String name, String description, Long price, String imageUrl, String category, int quantity) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.image = imageUrl;
         this.category = category;
-        this.stockQuantity = stockQuantity;
+        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -50,11 +53,11 @@ public class Cart {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -74,11 +77,11 @@ public class Cart {
         this.category = category;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

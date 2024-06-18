@@ -19,4 +19,7 @@ public interface CartDAO {
 
     @Query("SELECT * FROM cart")
     public List<Cart> getCarts();
+
+    @Query("SELECT * FROM cart WHERE name = :name LIMIT 1")
+    public Cart findCartByName(String name);
 }

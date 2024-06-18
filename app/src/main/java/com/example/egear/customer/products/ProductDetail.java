@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.bumptech.glide.Glide;
 import com.example.egear.R;
 import com.example.egear.room.AppDatabase;
 import com.example.egear.room.Cart;
@@ -28,7 +29,7 @@ public class ProductDetail extends AppCompatActivity {
         Intent intent = getIntent();
         Product product = (Product) intent.getSerializableExtra("product");
 
-//        ImageView imageView = findViewById(R.id.productImage);
+        ImageView imageView = findViewById(R.id.productImage);
         TextView productName = findViewById(R.id.productName);
         TextView productPrice = findViewById(R.id.productPrice);
         TextView productCategory = findViewById(R.id.productCategory);
@@ -36,7 +37,7 @@ public class ProductDetail extends AppCompatActivity {
         TextView productDescription = findViewById(R.id.productDescription);
         ImageView backButton = (ImageView) findViewById(R.id.btnBack);
 
-//        imageView.setImageResource(Integer.parseInt(product.getImage()));
+        Glide.with(this).load(product.getImageUrl()).into(imageView);
         productName.setText(product.getName());
         productPrice.setText(String.format("%s $", product.getPrice()));
         productCategory.setText(product.getCategory());
@@ -56,7 +57,7 @@ public class ProductDetail extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartDAO.insert(new Cart(product.getName(), product.getDescription(), product.getPrice(), product.getCategory(), product.getStockQuantity()));
+                cartDAO.insert(new Cart(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getImageUrl(), product.getCategory(), 1));
 
                 List<Cart> carts = cartDAO.getCarts();
                 System.out.println(carts);

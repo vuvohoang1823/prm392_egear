@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.bumptech.glide.Glide;
 import com.example.egear.R;
 import com.example.egear.room.AppDatabase;
 import com.example.egear.room.CartDAO;
@@ -48,7 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
       holder.productName.setText(cartItem.getName());
       holder.productPrice.setText("$" + cartItem.getPrice());
       holder.productQuantity.setText(String.valueOf(cartItem.getQuantity()));
-      holder.productImage.setImageResource(cartItem.getImageResource());
+      Glide.with(context).load(cartItem.getImage()).into(holder.productImage);
       holder.productCheckbox.setChecked(selectedItems.contains(cartItem));
 
       holder.productCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -78,10 +79,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
          selectedItems.remove(cartItem);
 
          db = Room.databaseBuilder(context, AppDatabase.class, "cart").allowMainThreadQueries().build();
-         com.example.egear.room.Cart cart = new com.example.egear.room.Cart();
-         cart.setName(cartItem.getName());
-         cart.setPrice(String.valueOf(cartItem.getPrice()));
-         db.getCartDAO().delete(cart);
+         com.example.egear.room.Cart cart = db.getCartDAO().findCartByName(cartItem.getName());
+         if (cart != null) {
+            db.getCartDAO().delete(cart);
+         }
 
          notifyItemRemoved(position);
          notifyItemRangeChanged(position, cartItemList.size());

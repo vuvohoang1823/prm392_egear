@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.egear.R;
 import com.example.egear.customer.cart.Cart;
 import com.example.egear.customer.cart.CartAdapter;
@@ -54,6 +55,14 @@ public class CartFragment extends Fragment {
         cartAdapter = new CartAdapter(getContext(), cartItemList);
         recyclerViewCart.setAdapter(cartAdapter);
 
+        if(cartItemList.isEmpty()){
+            emptyCartSection.setVisibility(View.VISIBLE);
+            cartTotalSection.setVisibility(View.GONE);
+        } else {
+            emptyCartSection.setVisibility(View.GONE);
+            cartTotalSection.setVisibility(View.VISIBLE);
+        }
+
         buttonOrder.setOnClickListener(v -> {
             List<Cart> selectedItems = cartAdapter.getSelectedItems();
             if (!selectedItems.isEmpty()) {
@@ -81,7 +90,7 @@ public class CartFragment extends Fragment {
             } else {
                 emptyCartSection.setVisibility(View.GONE);
                 for (com.example.egear.room.Cart cart : carts) {
-                    cartItemList.add(new Cart(cart.getName(), Double.parseDouble(cart.getPrice()), 1, R.drawable.ic_launcher_background));
+                    cartItemList.add(new Cart(cart.getName(), cart.getPrice(), 1, cart.getImage()));
                 }
             }
         }

@@ -1,6 +1,8 @@
 package com.example.egear.customer.products;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.egear.R;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>
@@ -51,6 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productCategory.setText(product.getCategory());
 //        holder.productStockQuantity.setText(String.valueOf(product.getStockQuantity()));
 //        holder.productImage.setImageResource(R.drawable.ic_launcher_background);
+        Glide.with(holder.itemView.getContext()).load(product.getImageUrl()).into(holder.productImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-//            productImage = itemView.findViewById(R.id.imageViewImage);
+            productImage = itemView.findViewById(R.id.imageViewImage);
             productName = itemView.findViewById(R.id.textViewName);
             productPrice = itemView.findViewById(R.id.textViewPrice);
             productCategory = itemView.findViewById(R.id.textViewCategory);

@@ -7,16 +7,16 @@ public class Combo implements Serializable{
     private String name;
     private String description;
     private Long price;
-    private String image_url;
+    private String img_url;
     private String discount_by_percent;
     private Long discount_by_value;
 
-    public Combo(Long id, String name, String description, Long price, String image_url, String discount_by_percent, Long discount_by_value) {
+    public Combo(Long id, String name, String description, Long price, String img_url, String discount_by_percent, Long discount_by_value) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.image_url = image_url;
+        this.img_url = img_url;
         this.discount_by_percent = discount_by_percent;
         this.discount_by_value = discount_by_value;
     }
@@ -62,11 +62,11 @@ public class Combo implements Serializable{
     }
 
     public String getImageUrl() {
-        return image_url;
+        return img_url;
     }
 
     public void setImageUrl(String image_url) {
-        this.image_url = image_url;
+        this.img_url = img_url;
     }
 
     public String getPercentDiscount() {

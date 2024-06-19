@@ -77,7 +77,7 @@ public class ComboFragment extends Fragment {
                     System.out.println("Code: " + response.code());
                     return;
                 }
-                System.out.println(response.body().getData());
+//                System.out.println(response.body().getData());
                 combos.addAll(response.body().getData());
                 adapter = new ComboAdapter(combos);
                 recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));

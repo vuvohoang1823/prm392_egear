@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.egear.R;
 
 import java.util.List;
@@ -36,10 +37,11 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
     public void onBindViewHolder(@NonNull ComboViewHolder holder, int position) {
         Combo combo = combos.get(position);
         holder.comboName.setText(combo.getName());
-        holder.comboDescription.setText(combo.getDescription());
-        holder.comboPrice.setText(combo.getPrice() + " $");
-        holder.comboPercentDiscount.setText(combo.getPercentDiscount() + " %");
+//        holder.comboDescription.setText(combo.getDescription());
+        holder.comboValueDiscount.setText(combo.getValueDiscount().toString());
+        holder.comboPercentDiscount.setText(combo.getPercentDiscount());
 //        holder.comboImage.setImageResource(combo.getImage());
+        Glide.with(holder.itemView.getContext()).load(combo.getImageUrl()).into(holder.comboImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +60,15 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
 
     public static class ComboViewHolder extends RecyclerView.ViewHolder {
         ImageView comboImage;
-        TextView comboName, comboDescription, comboPrice, comboPercentDiscount;
+        TextView comboName, comboDescription, comboValueDiscount, comboPercentDiscount;
 
         public ComboViewHolder(@NonNull View itemView) {
             super(itemView);
-//            comboImage = itemView.findViewById(R.id.combo_image);
-            comboName = itemView.findViewById(R.id.comboName);
-            comboDescription = itemView.findViewById(R.id.comboDescription);
-            comboPrice = itemView.findViewById(R.id.comboPrice);
-            comboPercentDiscount = itemView.findViewById(R.id.percentDiscount);
+            comboImage = itemView.findViewById(R.id.combo_image);
+            comboName = itemView.findViewById(R.id.combo_name);
+//            comboDescription = itemView.findViewById(R.id.combo_description);
+            comboValueDiscount = itemView.findViewById(R.id.value_discount);
+            comboPercentDiscount = itemView.findViewById(R.id.percent_discount);
         }
     }
 

@@ -10,11 +10,11 @@
         android:title="Combo" />
     <item
         android:id="@+id/cart"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/ic_action_shopping_cart"
         android:title="Cart" />
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/ic_action_profile"
         android:title="Profile" />
 
 </menu>

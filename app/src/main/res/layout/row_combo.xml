@@ -10,7 +10,7 @@
     >
 
     <ImageView
-        android:id="@+id/comboImage"
+        android:id="@+id/combo_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="15dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/comboName"
+        android:id="@+id/combo_name"
         android:layout_width="174dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -28,33 +28,33 @@
         android:text="Name"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/comboImage"
+        app:layout_constraintStart_toEndOf="@+id/combo_image"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/comboDescription"
-        android:layout_width="174dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:text="Description"
-        app:layout_constraintStart_toEndOf="@+id/comboImage"
-        app:layout_constraintTop_toBottomOf="@+id/comboName" />
+<!--    <TextView-->
+<!--        android:id="@+id/combo_description"-->
+<!--        android:layout_width="174dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="56dp"-->
+<!--        android:text="Description"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/combo_image"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/combo_name" />-->
 
     <TextView
-        android:id="@+id/percentDiscount"
-        android:layout_width="72dp"
-        android:layout_height="61dp"
+        android:id="@+id/percent_discount"
+        android:layout_width="62dp"
+        android:layout_height="56dp"
         android:layout_marginStart="192dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Percent_discount"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/comboImage"
+        app:layout_constraintStart_toEndOf="@+id/combo_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/comboPrice"
+        android:id="@+id/value_discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -62,8 +62,8 @@
         android:text="Price"
         android:textSize="18dp"
         android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/comboImage"
-        app:layout_constraintTop_toBottomOf="@+id/comboName" />
+        app:layout_constraintStart_toEndOf="@+id/combo_image"
+        app:layout_constraintTop_toBottomOf="@+id/combo_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

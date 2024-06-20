@@ -47,7 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
       Cart cartItem = cartItemList.get(position);
       holder.productName.setText(cartItem.getName());
-      holder.productPrice.setText("$" + cartItem.getPrice());
+      holder.productPrice.setText("$" + (cartItem.getPrice()));
       holder.productQuantity.setText(String.valueOf(cartItem.getQuantity()));
       Glide.with(context).load(cartItem.getImage()).into(holder.productImage);
       holder.productCheckbox.setChecked(selectedItems.contains(cartItem));

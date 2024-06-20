@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.egear.customer.order.OrderActivity;
 import com.example.egear.R;
 import com.example.egear.customer.cart.Cart;
 import com.example.egear.customer.cart.CartAdapter;
@@ -63,16 +64,20 @@ public class CartFragment extends Fragment {
             cartTotalSection.setVisibility(View.VISIBLE);
         }
 
+        List<Cart> selectedItems = cartAdapter.getSelectedItems();
+
         buttonOrder.setOnClickListener(v -> {
-            List<Cart> selectedItems = cartAdapter.getSelectedItems();
             if (!selectedItems.isEmpty()) {
-//                Intent intent = new Intent(getContext(), com.example.egear.customer.OrderActivity.class);
+                buttonOrder.setVisibility(View.GONE);
+
+                Intent intent = new Intent(getContext(), OrderActivity.class);
 //                intent.putParcelableArrayListExtra("selected_items", new ArrayList<>(selectedItems));
-//                intent.putExtra("selected_items", new ArrayList<>(selectedItems));
-//                startActivity(intent);
+                intent.putExtra("selected_items", new ArrayList<>(selectedItems));
+                startActivity(intent);
 
             }
         });
+
     }
 
     private void getProducts() {

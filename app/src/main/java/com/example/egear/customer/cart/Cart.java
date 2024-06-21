@@ -23,7 +23,7 @@ public class Cart implements Serializable {
       return name;
    }
 
-   public double getPrice() {
+   public Long getPrice() {
       return price;
    }
 

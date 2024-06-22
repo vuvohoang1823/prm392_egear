@@ -37,5 +37,5 @@
         app:labelVisibilityMode="selected"
         app:layout_anchor="@+id/flFragment"
         app:layout_anchorGravity="bottom"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/customer_bottom_menu" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

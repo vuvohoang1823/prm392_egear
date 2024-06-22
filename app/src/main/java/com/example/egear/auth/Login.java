@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.egear.AdminActivity;
 import com.example.egear.MainActivity;
 import com.example.egear.R;
 
@@ -75,12 +76,18 @@ public class Login extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     // Save the token and user ID (e.g., in SharedPreferences)
                     saveLoginInfo(loginResponse);
-                    // Navigate to the main activity
-                    Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-
+                    // Navigate based on user role
+                    if (loginResponse.getRole().equals("ADMIN")) {
+                        Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Login.this, AdminActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else if (loginResponse.getRole().equals("CUSTOMER")) {
+                        Toast.makeText(Login.this, "Login successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     // Handle error response
                     Toast.makeText(Login.this, "Login failed", Toast.LENGTH_SHORT).show();

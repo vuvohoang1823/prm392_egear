@@ -18,6 +18,7 @@
         <activity android:name=".customer.products.ProductDetail"/>
         <activity android:name=".customer.combo.ComboDetail"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".AdminActivity"/>
         <activity
             android:name=".customer.order.OrderActivity"
             android:exported="false"

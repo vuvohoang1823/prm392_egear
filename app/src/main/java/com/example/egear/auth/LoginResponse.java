@@ -4,11 +4,13 @@ public class LoginResponse {
     private String accessToken;
     private String refreshToken;
     private String role;
+    private String accountId;
 
-    public LoginResponse(String accessToken, String refreshToken, String user) {
+    public LoginResponse(String accessToken, String refreshToken, String user, String accountId) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.role = user;
+        this.accountId = accountId;
     }
 
     public String getAccessToken() {
@@ -33,5 +35,13 @@ public class LoginResponse {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 }

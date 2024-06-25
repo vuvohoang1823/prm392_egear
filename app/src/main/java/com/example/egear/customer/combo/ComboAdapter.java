@@ -38,8 +38,9 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
         Combo combo = combos.get(position);
         holder.comboName.setText(combo.getName());
 //        holder.comboDescription.setText(combo.getDescription());
-        holder.comboValueDiscount.setText(combo.getValueDiscount().toString());
-        holder.comboPercentDiscount.setText(combo.getPercentDiscount());
+//        holder.comboValueDiscount.setText(combo.getValueDiscount().toString());
+        holder.comboPercentDiscount.setText(combo.getPercentDiscount() + " OFF");
+        holder.comboPrice.setText(combo.getPrice().toString() + " $");
 //        holder.comboImage.setImageResource(combo.getImage());
         Glide.with(holder.itemView.getContext()).load(combo.getImageUrl()).into(holder.comboImage);
 
@@ -60,14 +61,15 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
 
     public static class ComboViewHolder extends RecyclerView.ViewHolder {
         ImageView comboImage;
-        TextView comboName, comboDescription, comboValueDiscount, comboPercentDiscount;
+        TextView comboName, comboDescription, comboValueDiscount, comboPercentDiscount, comboPrice;
 
         public ComboViewHolder(@NonNull View itemView) {
             super(itemView);
             comboImage = itemView.findViewById(R.id.combo_image);
             comboName = itemView.findViewById(R.id.combo_name);
 //            comboDescription = itemView.findViewById(R.id.combo_description);
-            comboValueDiscount = itemView.findViewById(R.id.value_discount);
+//            comboValueDiscount = itemView.findViewById(R.id.value_discount);
+            comboPrice = itemView.findViewById(R.id.combo_price);
             comboPercentDiscount = itemView.findViewById(R.id.percent_discount);
         }
     }

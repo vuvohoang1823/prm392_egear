@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -62,6 +63,7 @@ public class ProductDetail extends AppCompatActivity {
                 List<Cart> carts = cartDAO.getCarts();
                 System.out.println(carts);
                 addToCart.setEnabled(false);
+                Toast.makeText(ProductDetail.this, "Added to cart", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

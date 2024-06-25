@@ -120,20 +120,8 @@ public class HomeFragment extends Fragment {
 
     private void getProducts() {
         products = new ArrayList<>();
-//        List<Product> products = new ArrayList<>();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", getActivity().MODE_PRIVATE);
         String token = sharedPreferences.getString("accessToken", "");
-//        products = new ArrayList<>();
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description1", "100", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description2", "200", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description3", "300", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description4", "400", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description5", "500", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description6", "600", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description7", "700", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description8", "800", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description9", "900", "Mouse", 10));
-//        products.add(new Product("Logitech G PRO X SUPERLIGHT", "Description10", "1000", "Mouse", 10));
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:9999/api/v1/")

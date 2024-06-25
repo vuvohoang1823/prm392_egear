@@ -108,6 +108,7 @@ public class Login extends AppCompatActivity {
         editor.putString("accessToken", loginResponse.getAccessToken());
         editor.putString("refreshToken", loginResponse.getRefreshToken());
         editor.putString("role", loginResponse.getRole());
+        editor.putString("accountId", loginResponse.getAccountId());
         editor.apply();
     }
 }

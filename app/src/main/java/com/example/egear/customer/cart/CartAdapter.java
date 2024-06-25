@@ -30,11 +30,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
       this.context = context;
       this.cartItemList = cartItemList;
    }
-   public CartAdapter(Context context, List<Cart> cartItemList, AppDatabase db) {
-      this.context = context;
-      this.cartItemList = cartItemList;
-      this.db = db;
-   }
 
    @NonNull
    @Override

@@ -15,12 +15,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.egear.customer.cart.UnifiedAdapter;
+import com.example.egear.customer.combo.Combo;
+import com.example.egear.customer.combo.ComboAdapter;
 import com.example.egear.customer.order.OrderActivity;
 import com.example.egear.R;
 import com.example.egear.customer.cart.Cart;
 import com.example.egear.customer.cart.CartAdapter;
 import com.example.egear.room.AppDatabase;
 import com.example.egear.room.CartDAO;
+import com.example.egear.room.ComboDAO;
+import com.example.egear.room.ComboDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +33,12 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
+    private ComboAdapter comboAdapter;
     private List<Cart> cartItemList;
+    private List<Combo> comboItemList;
     private Button buttonOrder;
     private AppDatabase db;
+    private ComboDatabase comboDatabase;
     private LinearLayout emptyCartSection, cartTotalSection;
 
     @Override
@@ -45,6 +53,7 @@ public class CartFragment extends Fragment {
         recyclerViewCart = view.findViewById(R.id.recycler_view_cart);
         if (getActivity() != null) {
             db = Room.databaseBuilder(getActivity(), AppDatabase.class, "cart").allowMainThreadQueries().build();
+            comboDatabase = Room.databaseBuilder(getActivity(), ComboDatabase.class, "combo").allowMainThreadQueries().build();
         }
 
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -52,11 +61,18 @@ public class CartFragment extends Fragment {
         buttonOrder = view.findViewById(R.id.button_checkout);
 
         getProducts();
+//        getCombos();
 
         cartAdapter = new CartAdapter(getContext(), cartItemList);
+        comboAdapter = new ComboAdapter(comboItemList);
         recyclerViewCart.setAdapter(cartAdapter);
+//        List<Object> itemList = new ArrayList<>();
+//        itemList.addAll(cartItemList);
+//        itemList.addAll(comboItemList);
+//        UnifiedAdapter unifiedAdapter = new UnifiedAdapter(itemList);
+//        recyclerViewCart.setAdapter(unifiedAdapter);
 
-        if(cartItemList.isEmpty()){
+        if (cartItemList.isEmpty()) {
             emptyCartSection.setVisibility(View.VISIBLE);
             cartTotalSection.setVisibility(View.GONE);
         } else {
@@ -68,7 +84,7 @@ public class CartFragment extends Fragment {
 
         buttonOrder.setOnClickListener(v -> {
             if (!selectedItems.isEmpty()) {
-                buttonOrder.setVisibility(View.GONE);
+//                buttonOrder.setVisibility(View.GONE);
 
                 Intent intent = new Intent(getContext(), OrderActivity.class);
 //                intent.putParcelableArrayListExtra("selected_items", new ArrayList<>(selectedItems));
@@ -95,7 +111,28 @@ public class CartFragment extends Fragment {
             } else {
                 emptyCartSection.setVisibility(View.GONE);
                 for (com.example.egear.room.Cart cart : carts) {
-                    cartItemList.add(new Cart(cart.getName(), cart.getPrice(), 1, cart.getImage()));
+                    cartItemList.add(new Cart(cart.getId(), cart.getName(), cart.getPrice(), 1, cart.getImage()));
+                }
+            }
+        }
+    }
+
+    private void getCombos() {
+        emptyCartSection = getView().findViewById(R.id.no_items_in_cart_section);
+        cartTotalSection = getView().findViewById(R.id.cart_total_section);
+        comboItemList = new ArrayList<>();
+        ComboDAO comboDAO = comboDatabase.getComboDAO();
+        List<com.example.egear.room.Combo> combos = comboDAO.getCombos();
+        System.out.println(combos);
+        if (combos != null) {
+            if (combos.isEmpty()) {
+                recyclerViewCart.setVisibility(View.GONE);
+                emptyCartSection.setVisibility(View.VISIBLE);
+                cartTotalSection.setVisibility(View.GONE);
+            } else {
+                emptyCartSection.setVisibility(View.GONE);
+                for (com.example.egear.room.Combo combo : combos) {
+                    comboItemList.add(new Combo(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value()));
                 }
             }
         }

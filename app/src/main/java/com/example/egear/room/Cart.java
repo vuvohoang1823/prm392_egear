@@ -19,7 +19,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Long id, String name, String description, Long price, String imageUrl, String category, int quantity) {
+    public Cart(@NonNull Long id, String name, String description, Long price, String imageUrl, String category, int quantity) {
         this.id = id;
         this.name = name;
         this.description = description;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,6 +94,7 @@ public class ComboDetail extends AppCompatActivity {
                 List<com.example.egear.room.Combo> combos = comboDAO.getCombos();
                 System.out.println(combos);
                 addToCart.setEnabled(false);
+                Toast.makeText(ComboDetail.this, "Added to cart", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

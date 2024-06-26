@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.egear.customer.cart.ComboCart;
+import com.example.egear.customer.cart.ComboCartAdapter;
 import com.example.egear.customer.cart.UnifiedAdapter;
 import com.example.egear.customer.combo.Combo;
 import com.example.egear.customer.combo.ComboAdapter;
@@ -33,9 +36,10 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private RecyclerView recyclerViewCart;
     private CartAdapter cartAdapter;
-    private ComboAdapter comboAdapter;
+    private ComboCartAdapter comboCartAdapter;
+    private UnifiedAdapter unifiedAdapter;
     private List<Cart> cartItemList;
-    private List<Combo> comboItemList;
+    private List<ComboCart> comboItemList;
     private Button buttonOrder;
     private AppDatabase db;
     private ComboDatabase comboDatabase;
@@ -50,29 +54,38 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init(view);
+
+    }
+
+    private void init(View view) {
         recyclerViewCart = view.findViewById(R.id.recycler_view_cart);
+
         if (getActivity() != null) {
             db = Room.databaseBuilder(getActivity(), AppDatabase.class, "cart").allowMainThreadQueries().build();
             comboDatabase = Room.databaseBuilder(getActivity(), ComboDatabase.class, "combo").allowMainThreadQueries().build();
         }
 
-        recyclerViewCart.setLayoutManager(new LinearLayoutManager(getContext()));
-
         buttonOrder = view.findViewById(R.id.button_checkout);
 
         getProducts();
-//        getCombos();
+        getCombos();
 
-        cartAdapter = new CartAdapter(getContext(), cartItemList);
-        comboAdapter = new ComboAdapter(comboItemList);
-        recyclerViewCart.setAdapter(cartAdapter);
-//        List<Object> itemList = new ArrayList<>();
-//        itemList.addAll(cartItemList);
-//        itemList.addAll(comboItemList);
-//        UnifiedAdapter unifiedAdapter = new UnifiedAdapter(itemList);
-//        recyclerViewCart.setAdapter(unifiedAdapter);
+//        cartAdapter = new CartAdapter(getContext(), cartItemList);
+//        comboCartAdapter = new ComboCartAdapter(getContext(), comboItemList);
+//        recyclerViewCart.setAdapter(cartAdapter);
+        List<Object> itemList = new ArrayList<>();
+        itemList.addAll(cartItemList);
+        itemList.addAll(comboItemList);
+        itemList.forEach(System.out::println);
+        Log.d("itemList", itemList.size() + "");
+        unifiedAdapter = new UnifiedAdapter(getContext(), itemList);
+        System.out.println(unifiedAdapter.getItemCount());
+        recyclerViewCart.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (cartItemList.isEmpty()) {
+        recyclerViewCart.setAdapter(unifiedAdapter);
+
+        if (cartItemList.isEmpty() && comboItemList.isEmpty()) {
             emptyCartSection.setVisibility(View.VISIBLE);
             cartTotalSection.setVisibility(View.GONE);
         } else {
@@ -80,20 +93,20 @@ public class CartFragment extends Fragment {
             cartTotalSection.setVisibility(View.VISIBLE);
         }
 
-        List<Cart> selectedItems = cartAdapter.getSelectedItems();
+        List<Cart> selectedProduct = unifiedAdapter.getSelectedProductItems();
+        List<ComboCart> selectedCombo = unifiedAdapter.getSelectedComboItems();
+//        List<Object> selectedItems = new ArrayList<>();
+//        selectedItems.addAll(selectedProduct);
+//        selectedItems.addAll(selectedCombo);
 
         buttonOrder.setOnClickListener(v -> {
-            if (!selectedItems.isEmpty()) {
-//                buttonOrder.setVisibility(View.GONE);
-
+            if (!selectedProduct.isEmpty() || !selectedCombo.isEmpty()) {
                 Intent intent = new Intent(getContext(), OrderActivity.class);
-//                intent.putParcelableArrayListExtra("selected_items", new ArrayList<>(selectedItems));
-                intent.putExtra("selected_items", new ArrayList<>(selectedItems));
+                intent.putExtra("selected_products", new ArrayList<>(selectedProduct));
+                intent.putExtra("selected_combos", new ArrayList<>(selectedCombo));
                 startActivity(intent);
-
             }
         });
-
     }
 
     private void getProducts() {
@@ -102,7 +115,6 @@ public class CartFragment extends Fragment {
         cartItemList = new ArrayList<>();
         CartDAO cartDAO = db.getCartDAO();
         List<com.example.egear.room.Cart> carts = cartDAO.getCarts();
-        System.out.println(carts);
         if (carts != null) {
             if (carts.isEmpty()) {
                 recyclerViewCart.setVisibility(View.GONE);
@@ -123,7 +135,6 @@ public class CartFragment extends Fragment {
         comboItemList = new ArrayList<>();
         ComboDAO comboDAO = comboDatabase.getComboDAO();
         List<com.example.egear.room.Combo> combos = comboDAO.getCombos();
-        System.out.println(combos);
         if (combos != null) {
             if (combos.isEmpty()) {
                 recyclerViewCart.setVisibility(View.GONE);
@@ -132,7 +143,7 @@ public class CartFragment extends Fragment {
             } else {
                 emptyCartSection.setVisibility(View.GONE);
                 for (com.example.egear.room.Combo combo : combos) {
-                    comboItemList.add(new Combo(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value()));
+                    comboItemList.add(new ComboCart(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value(), combo.getQuantity()));
                 }
             }
         }

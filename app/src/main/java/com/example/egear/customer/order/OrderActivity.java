@@ -1,6 +1,5 @@
 package com.example.egear.customer.order;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,15 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.egear.R;
 import com.example.egear.customer.cart.Cart;
+import com.example.egear.customer.cart.ComboCart;
+import com.example.egear.customer.cart.UnifiedAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerViewOrder;
-    private OrderAdapter orderAdapter;
+    private UnifiedAdapter unifiedAdapter;
     private Button buttonConfirmOrder;
     private TextView totalPriceTextView;
-    private ArrayList<Cart> selectedItems;
+    private ArrayList<Cart> selectedProducts;
+    private ArrayList<ComboCart> selectedCombos;
     private ImageView btnBack;
 
     @Override
@@ -37,10 +40,14 @@ public class OrderActivity extends AppCompatActivity {
         btnBack = (ImageView) findViewById(R.id.btnBack);
 
         // Get the selected items from the intent
-        selectedItems = (ArrayList<Cart>) getIntent().getSerializableExtra("selected_items");
+        selectedProducts = (ArrayList<Cart>) getIntent().getSerializableExtra("selected_products");
+        selectedCombos = (ArrayList<ComboCart>) getIntent().getSerializableExtra("selected_combos");
+        List<Object> selectedItems = new ArrayList<>();
+        selectedItems.addAll(selectedProducts);
+        selectedItems.addAll(selectedCombos);
 
-        orderAdapter = new OrderAdapter(this, selectedItems);
-        recyclerViewOrder.setAdapter(orderAdapter);
+        unifiedAdapter = new UnifiedAdapter(this, selectedItems);
+        recyclerViewOrder.setAdapter(unifiedAdapter);
 
         // Calculate and display the total price
         calculateTotalPrice();
@@ -57,7 +64,10 @@ public class OrderActivity extends AppCompatActivity {
 
     private void calculateTotalPrice() {
         double totalPrice = 0.0;
-        for (Cart item : selectedItems) {
+        for (Cart item : selectedProducts) {
+            totalPrice += item.getPrice() * item.getQuantity();
+        }
+        for (ComboCart item : selectedCombos) {
             totalPrice += item.getPrice() * item.getQuantity();
         }
         totalPriceTextView.setText("TOTAL: $" + String.format("%.2f", totalPrice));

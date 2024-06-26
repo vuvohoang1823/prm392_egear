@@ -19,5 +19,5 @@ public interface ComboDAO {
     @Query("SELECT * FROM combo")
     public List<Combo> getCombos();
     @Query("SELECT * FROM combo WHERE id = :id")
-    public Combo getCombo(Long id);
+    public Combo getComboById(Long id);
 }

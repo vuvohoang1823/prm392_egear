@@ -120,7 +120,14 @@
                             android:gravity="center_vertical"
                             android:text="Address"
                             android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:scrollHorizontally="true"
+                            android:textColor="@android:color/black" />
 
                         <TextView
                             android:id="@+id/textView7"

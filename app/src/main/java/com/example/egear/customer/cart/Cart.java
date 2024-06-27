@@ -51,5 +51,16 @@ public class Cart implements Serializable {
    public void setImage(String image) {
       this.image = image;
    }
+
+   @Override
+   public String toString() {
+      return "Cart{" +
+              "id=" + id +
+              ", name='" + name + '\'' +
+              ", price=" + price +
+              ", quantity=" + quantity +
+              ", image='" + image + '\'' +
+              '}';
+   }
 }
 

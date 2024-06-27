@@ -1,12 +1,10 @@
 package com.example.egear.customer.cart;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,18 +12,23 @@ import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.example.egear.R;
-import com.example.egear.customer.combo.Combo;
-import com.example.egear.customer.combo.ComboAdapter;
 import com.example.egear.room.AppDatabase;
+import com.example.egear.room.ComboDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int CART = 0, COMBO = 1;
+    private Context context;
     private List<Object> itemList = new ArrayList<>();
+    private List<Cart> selectedProductItems = new ArrayList<>();
+    private List<ComboCart> selectedComboItems = new ArrayList<>();
+    private AppDatabase db;
+    private ComboDatabase comboDb;
 
-    public UnifiedAdapter(List<Object> itemList) {
+    public UnifiedAdapter(Context context, List<Object> itemList) {
+        this.context = context;
         this.itemList = itemList;
     }
 
@@ -33,7 +36,7 @@ public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemViewType(int position) {
         if (itemList.get(position) instanceof Cart) {
             return CART;
-        } else if (itemList.get(position) instanceof Combo) {
+        } else if (itemList.get(position) instanceof ComboCart) {
             return COMBO;
         }
         return -1;
@@ -47,23 +50,111 @@ public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (viewType == CART) {
             view = inflater.inflate(R.layout.cart_item, parent, false);
             return new CartAdapter.CartViewHolder(view);
-        } else {
+        } else if (viewType == COMBO) {
             view = inflater.inflate(R.layout.cart_combo_item, parent, false);
-            return new ComboAdapter.ComboViewHolder(view);
+            return new ComboCartAdapter.ComboCartViewHolder(view);
+        } else {
+            return null;
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == CART) {
-            Cart cart = (Cart) itemList.get(position);
             CartAdapter.CartViewHolder cartViewHolder = (CartAdapter.CartViewHolder) holder;
+            Cart cart = (Cart) itemList.get(position);
             // bind cart data to cartViewHolder
-        } else {
-            Combo combo = (Combo) itemList.get(position);
-            ComboAdapter.ComboViewHolder comboViewHolder = (ComboAdapter.ComboViewHolder) holder;
+            cartViewHolder.productName.setText(cart.getName());
+            cartViewHolder.productPrice.setText("$" + (cart.getPrice()));
+            cartViewHolder.productQuantity.setText(String.valueOf(cart.getQuantity()));
+            Glide.with(cartViewHolder.itemView.getContext()).load(cart.getImage()).into(cartViewHolder.productImage);
+            cartViewHolder.productCheckbox.setChecked(selectedProductItems.contains(cart));
+
+            cartViewHolder.productCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    selectedProductItems.add(cart);
+                } else {
+                    selectedProductItems.remove(cart);
+                }
+            });
+
+            cartViewHolder.buttonIncrease.setOnClickListener(v -> {
+                int quantity = cart.getQuantity();
+                cart.setQuantity(quantity + 1);
+                notifyItemChanged(position);
+            });
+
+            cartViewHolder.buttonDecrease.setOnClickListener(v -> {
+                int quantity = cart.getQuantity();
+                if (quantity > 1) {
+                    cart.setQuantity(quantity - 1);
+                    notifyItemChanged(position);
+                }
+            });
+
+            cartViewHolder.buttonRemove.setOnClickListener(v -> {
+                itemList.remove(position);
+                selectedProductItems.remove(cart);
+                db = Room.databaseBuilder(cartViewHolder.itemView.getContext(), AppDatabase.class, "cart").allowMainThreadQueries().build();
+                com.example.egear.room.Cart cart1 = db.getCartDAO().findCartByName(cart.getName());
+                if (cart1 != null) {
+                    db.getCartDAO().delete(cart1);
+                }
+
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, itemList.size());
+            });
+        } else if (holder.getItemViewType() == COMBO) {
+            ComboCart comboCart = (ComboCart) itemList.get(position);
+            ComboCartAdapter.ComboCartViewHolder comboCartViewHolder = (ComboCartAdapter.ComboCartViewHolder) holder;
             // bind combo data to comboViewHolder
+            comboCartViewHolder.comboName.setText(comboCart.getName());
+            comboCartViewHolder.comboPrice.setText("$" + (comboCart.getPrice()));
+            comboCartViewHolder.comboQuantity.setText(String.valueOf(comboCart.getQuantity()));
+            Glide.with(comboCartViewHolder.itemView.getContext()).load(comboCart.getImageUrl()).into(comboCartViewHolder.comboImage);
+            comboCartViewHolder.comboCheckbox.setChecked(selectedComboItems.contains(comboCart));
+
+            comboCartViewHolder.buttonIncrease.setOnClickListener(v -> {
+                int quantity = comboCart.getQuantity();
+                comboCart.setQuantity(quantity + 1);
+            });
+
+            comboCartViewHolder.buttonDecrease.setOnClickListener(v -> {
+                int quantity = comboCart.getQuantity();
+                if (quantity > 0) {
+                    comboCart.setQuantity(quantity - 1);
+                }
+            });
+
+            comboCartViewHolder.comboCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    selectedComboItems.add(comboCart);
+                } else {
+                    selectedComboItems.remove(comboCart);
+                }
+            });
+
+            comboCartViewHolder.buttonRemove.setOnClickListener(v -> {
+                itemList.remove(position);
+                selectedComboItems.remove(comboCart);
+                comboDb = Room.databaseBuilder(comboCartViewHolder.itemView.getContext(), ComboDatabase.class, "combo").allowMainThreadQueries().build();
+                com.example.egear.room.Combo comboDbItem = comboDb.getComboDAO().getComboById(comboCart.getId());
+                if (comboDbItem != null) {
+                    comboDb.getComboDAO().delete(comboDbItem);
+                }
+
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, itemList.size());
+            });
         }
+    }
+
+    public List<Cart> getSelectedProductItems() {
+        return selectedProductItems;
+    }
+
+    public List<ComboCart> getSelectedComboItems() {
+        return selectedComboItems;
     }
 
     @Override

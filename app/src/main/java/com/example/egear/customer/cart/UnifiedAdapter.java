@@ -28,9 +28,6 @@ public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ComboDatabase comboDb;
 
     public UnifiedAdapter(Context context, List<Object> itemList) {
-        itemList.forEach(item -> {
-            Log.d("item", item.toString());
-        });
         this.context = context;
         this.itemList = itemList;
     }
@@ -38,10 +35,8 @@ public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemViewType(int position) {
         if (itemList.get(position) instanceof Cart) {
-            Log.d("cart", "cart");
             return CART;
         } else if (itemList.get(position) instanceof ComboCart) {
-            Log.d("combo", "combo");
             return COMBO;
         }
         return -1;
@@ -52,13 +47,10 @@ public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view;
-        Log.d("viewType", String.valueOf(viewType));
         if (viewType == CART) {
-            System.out.println("cart");
             view = inflater.inflate(R.layout.cart_item, parent, false);
             return new CartAdapter.CartViewHolder(view);
         } else if (viewType == COMBO) {
-            System.out.println("combo");
             view = inflater.inflate(R.layout.cart_combo_item, parent, false);
             return new ComboCartAdapter.ComboCartViewHolder(view);
         } else {
@@ -68,7 +60,6 @@ public class UnifiedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Log.d("view type", String.valueOf(holder.getItemViewType()));
         if (holder.getItemViewType() == CART) {
             CartAdapter.CartViewHolder cartViewHolder = (CartAdapter.CartViewHolder) holder;
             Cart cart = (Cart) itemList.get(position);

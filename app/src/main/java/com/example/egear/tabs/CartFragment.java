@@ -3,6 +3,7 @@ package com.example.egear.tabs;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,7 +59,7 @@ public class CartFragment extends Fragment {
 
     }
 
-    private void init(View view) {
+    private void init(@NonNull View view) {
         recyclerViewCart = view.findViewById(R.id.recycler_view_cart);
 
         if (getActivity() != null) {
@@ -78,9 +79,7 @@ public class CartFragment extends Fragment {
         itemList.addAll(cartItemList);
         itemList.addAll(comboItemList);
         itemList.forEach(System.out::println);
-        Log.d("itemList", itemList.size() + "");
         unifiedAdapter = new UnifiedAdapter(getContext(), itemList);
-        System.out.println(unifiedAdapter.getItemCount());
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recyclerViewCart.setAdapter(unifiedAdapter);
@@ -116,15 +115,9 @@ public class CartFragment extends Fragment {
         CartDAO cartDAO = db.getCartDAO();
         List<com.example.egear.room.Cart> carts = cartDAO.getCarts();
         if (carts != null) {
-            if (carts.isEmpty()) {
-                recyclerViewCart.setVisibility(View.GONE);
-                emptyCartSection.setVisibility(View.VISIBLE);
-                cartTotalSection.setVisibility(View.GONE);
-            } else {
-                emptyCartSection.setVisibility(View.GONE);
-                for (com.example.egear.room.Cart cart : carts) {
-                    cartItemList.add(new Cart(cart.getId(), cart.getName(), cart.getPrice(), 1, cart.getImage()));
-                }
+            emptyCartSection.setVisibility(View.GONE);
+            for (com.example.egear.room.Cart cart : carts) {
+                cartItemList.add(new Cart(cart.getId(), cart.getName(), cart.getPrice(), 1, cart.getImage()));
             }
         }
     }
@@ -136,15 +129,9 @@ public class CartFragment extends Fragment {
         ComboDAO comboDAO = comboDatabase.getComboDAO();
         List<com.example.egear.room.Combo> combos = comboDAO.getCombos();
         if (combos != null) {
-            if (combos.isEmpty()) {
-                recyclerViewCart.setVisibility(View.GONE);
-                emptyCartSection.setVisibility(View.VISIBLE);
-                cartTotalSection.setVisibility(View.GONE);
-            } else {
-                emptyCartSection.setVisibility(View.GONE);
-                for (com.example.egear.room.Combo combo : combos) {
-                    comboItemList.add(new ComboCart(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value(), combo.getQuantity()));
-                }
+            emptyCartSection.setVisibility(View.GONE);
+            for (com.example.egear.room.Combo combo : combos) {
+                comboItemList.add(new ComboCart(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value(), combo.getQuantity()));
             }
         }
     }

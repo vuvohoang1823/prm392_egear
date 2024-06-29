@@ -34,40 +34,39 @@ public class ComboCartAdapter extends RecyclerView.Adapter<ComboCartAdapter.Comb
     @NonNull
     @Override
     public ComboCartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_combo_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.cart_combo_item, parent, false);
         return new ComboCartViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ComboCartAdapter.ComboCartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ComboCartViewHolder holder, int position) {
         ComboCart combo = combos.get(position);
         holder.comboName.setText(combo.getName());
-//        holder.comboDescription.setText(combo.getDescription());
-//        holder.comboValueDiscount.setText(combo.getValueDiscount().toString());
         holder.comboPercentDiscount.setText(combo.getPercentDiscount() + " OFF");
         holder.comboPrice.setText(combo.getPrice().toString() + " $");
-//        holder.comboImage.setImageResource(combo.getImage());
-        Glide.with(holder.itemView.getContext()).load(combo.getImageUrl()).into(holder.comboImage);
+        Glide.with(context).load(combo.getImageUrl()).into(holder.comboImage);
         holder.comboQuantity.setText(String.valueOf(combo.getQuantity()));
         holder.comboCheckbox.setChecked(selectedItems.contains(combo));
-
-        holder.buttonIncrease.setOnClickListener(v -> {
-            int quantity = combo.getQuantity();
-            combo.setQuantity(quantity + 1);
-        });
-
-        holder.buttonDecrease.setOnClickListener(v -> {
-            int quantity = combo.getQuantity();
-            if (quantity > 0) {
-                combo.setQuantity(quantity - 1);
-            }
-        });
 
         holder.comboCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 selectedItems.add(combo);
             } else {
                 selectedItems.remove(combo);
+            }
+        });
+
+        holder.buttonIncrease.setOnClickListener(v -> {
+            int quantity = combo.getQuantity();
+            combo.setQuantity(quantity + 1);
+            notifyItemChanged(position);
+        });
+
+        holder.buttonDecrease.setOnClickListener(v -> {
+            int quantity = combo.getQuantity();
+            if (quantity > 1) {
+                combo.setQuantity(quantity - 1);
+                notifyItemChanged(position);
             }
         });
 
@@ -101,14 +100,15 @@ public class ComboCartAdapter extends RecyclerView.Adapter<ComboCartAdapter.Comb
         Button buttonDecrease;
         public Button buttonRemove;
         ImageView comboImage;
-        TextView comboName, comboDescription, comboValueDiscount, comboPercentDiscount, comboPrice, comboQuantity;
+        TextView comboName;
+        TextView comboPrice;
+        TextView comboPercentDiscount;
+        TextView comboQuantity;
 
         public ComboCartViewHolder(@NonNull View itemView) {
             super(itemView);
             comboImage = itemView.findViewById(R.id.combo_image);
             comboName = itemView.findViewById(R.id.combo_name);
-//            comboDescription = itemView.findViewById(R.id.combo_description);
-//            comboValueDiscount = itemView.findViewById(R.id.value_discount);
             comboPrice = itemView.findViewById(R.id.combo_price);
             comboPercentDiscount = itemView.findViewById(R.id.percent_discount);
             comboQuantity = itemView.findViewById(R.id.combo_quantity);

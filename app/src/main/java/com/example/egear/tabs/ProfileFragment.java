@@ -1,11 +1,14 @@
 package com.example.egear.tabs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.egear.R;
+import com.example.egear.auth.Login;
 import com.example.egear.customer.profile.ProfileService;
 import com.example.egear.customer.profile.UserProfile;
 
@@ -25,6 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileFragment extends Fragment {
     private TextView profileName, profileEmail, profilePhone, profileAddress, profilePassword;
+    private ImageView profileAvatar;
+    private Button buttonLogout;
 
     @Nullable
     @Override
@@ -37,12 +44,32 @@ public class ProfileFragment extends Fragment {
         profilePhone = view.findViewById(R.id.textView5);
         profileAddress = view.findViewById(R.id.textView6);
         profilePassword = view.findViewById(R.id.textView7);
+        profileAvatar = view.findViewById(R.id.avatar);
+        buttonLogout = (Button) view.findViewById(R.id.logoutBtn);
 
         // Kích hoạt chế độ marquee cho TextView hiển thị địa chỉ
         profileAddress.setSelected(true);
 
         // Gọi phương thức để lấy thông tin người dùng
         getUserProfile();
+
+        // Xử lý sự kiện khi người dùng nhấn nút Logout
+        buttonLogout.setOnClickListener(v -> {
+            // Xóa token khỏi SharedPreferences
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("accessToken");
+            editor.remove("refreshToken");
+            editor.remove("role");
+            editor.remove("accountId");
+            editor.apply();
+
+            Toast.makeText(getActivity(), "Logged out", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getActivity(), Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
 
         return view;
     }
@@ -74,6 +101,7 @@ public class ProfileFragment extends Fragment {
                         profileEmail.setText(userProfile.getEmail());
                         profilePhone.setText(userProfile.getPhone());
                         profileAddress.setText(userProfile.getAddress());
+                        Glide.with(getActivity()).load(userProfile.getAvatar_url()).into(profileAvatar);
 
                         // Ẩn mật khẩu bằng ký tự "*"
                         profilePassword.setText(userProfile.getDescription().replaceAll(".", "*"));
@@ -85,7 +113,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserProfile> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println(t.getMessage());
             }
         });
     }

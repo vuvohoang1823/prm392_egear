@@ -78,8 +78,7 @@ public class CartFragment extends Fragment {
         List<Object> itemList = new ArrayList<>();
         itemList.addAll(cartItemList);
         itemList.addAll(comboItemList);
-        itemList.forEach(System.out::println);
-        unifiedAdapter = new UnifiedAdapter(getContext(), itemList);
+        unifiedAdapter = new UnifiedAdapter(getContext(), itemList, false);
         recyclerViewCart.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recyclerViewCart.setAdapter(unifiedAdapter);
@@ -131,7 +130,7 @@ public class CartFragment extends Fragment {
         if (combos != null) {
             emptyCartSection.setVisibility(View.GONE);
             for (com.example.egear.room.Combo combo : combos) {
-                comboItemList.add(new ComboCart(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value(), combo.getQuantity()));
+                comboItemList.add(new ComboCart(combo.getId(), combo.getName(), combo.getDescription(), combo.getProducts_total(), combo.getImg_url(), combo.getDiscount_by_percent(), combo.getDiscount_by_value(), 1));
             }
         }
     }

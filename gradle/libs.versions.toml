@@ -22,6 +22,7 @@ room = { group = "androidx.room", name = "room-runtime", version = "2.6.1" }
 roomCompiler = { group = "androidx.room", name = "room-compiler", version = "2.6.1" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version = "4.12.0" }
 glideCompiler = { group = "com.github.bumptech.glide", name = "compiler", version = "4.12.0" }
+webkit = { group = "androidx.webkit", name = "webkit", version = "1.4.0" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

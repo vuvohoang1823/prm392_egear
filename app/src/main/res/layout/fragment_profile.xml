@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ececec">
+        android:background="#C6C6C6">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                         app:srcCompat="@drawable/top_background" />
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"
@@ -49,10 +49,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+                        app:layout_constraintTop_toBottomOf="@+id/avatar">
 
                         <TextView
                             android:id="@+id/profileName"
@@ -66,6 +67,7 @@
                             android:drawableStart="@drawable/ic_1"
                             android:drawablePadding="20dp"
                             android:paddingStart="20dp"
+                            android:shadowDy="1"
                             android:gravity="center_vertical"
                             android:text="Name"
                             android:textSize="18sp"
@@ -147,6 +149,7 @@
                             android:textStyle="bold" />
 
                         <Button
+                            android:id="@+id/logoutBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
                             android:layout_marginTop="10dp"

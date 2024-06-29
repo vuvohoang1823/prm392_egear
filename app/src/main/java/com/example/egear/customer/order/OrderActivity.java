@@ -1,5 +1,8 @@
 package com.example.egear.customer.order;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +30,7 @@ public class OrderActivity extends AppCompatActivity {
     private ArrayList<ComboCart> selectedCombos;
     private ImageView btnBack;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +50,7 @@ public class OrderActivity extends AppCompatActivity {
         selectedItems.addAll(selectedProducts);
         selectedItems.addAll(selectedCombos);
 
-        unifiedAdapter = new UnifiedAdapter(this, selectedItems);
+        unifiedAdapter = new UnifiedAdapter(this, selectedItems, true);
         recyclerViewOrder.setAdapter(unifiedAdapter);
 
         // Calculate and display the total price
@@ -55,6 +59,14 @@ public class OrderActivity extends AppCompatActivity {
         buttonConfirmOrder.setOnClickListener(v -> {
             Toast.makeText(this, "Order Successful", Toast.LENGTH_SHORT).show();
             // Handle order confirmation logic here
+            // c1
+//            Intent intent = new Intent(this, Purchase.class);
+//            startActivity(intent);
+            // c2
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://google.com"));
+            startActivity(intent);
         });
 
         btnBack.setOnClickListener(v -> {

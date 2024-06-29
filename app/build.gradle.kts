@@ -50,4 +50,5 @@ dependencies {
     annotationProcessor(libs.roomCompiler)
     implementation(libs.glide)
     annotationProcessor(libs.glideCompiler)
+    implementation(libs.webkit)
 }

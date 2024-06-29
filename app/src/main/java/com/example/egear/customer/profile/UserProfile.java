@@ -8,11 +8,12 @@ public class UserProfile {
     private String email;
     private String phone;
     private String address;
+    private String avatar_url;
 
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String username, String name, String description, String email, String phone, String address) {
+    public UserProfile(Long id, String username, String name, String description, String email, String phone, String address, String avatar_url) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -20,6 +21,7 @@ public class UserProfile {
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.avatar_url = avatar_url;
     }
 
     public Long getId() {
@@ -76,5 +78,13 @@ public class UserProfile {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
 }

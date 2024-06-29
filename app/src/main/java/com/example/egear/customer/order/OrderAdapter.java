@@ -56,10 +56,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
       public OrderViewHolder(@NonNull View itemView) {
          super(itemView);
-         orderProductImage = itemView.findViewById(R.id.order_product_image);
-         orderProductName = itemView.findViewById(R.id.order_product_name);
-         orderProductPrice = itemView.findViewById(R.id.order_product_price);
-         orderProductQuantity = itemView.findViewById(R.id.order_product_quantity);
+         orderProductImage = itemView.findViewById(R.id.product_image);
+         orderProductName = itemView.findViewById(R.id.product_name);
+         orderProductPrice = itemView.findViewById(R.id.product_price);
+         orderProductQuantity = itemView.findViewById(R.id.product_quantity);
       }
    }
 }

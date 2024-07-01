@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/admin_dashboard"
+        android:icon="@drawable/ic_action_chart"
+        android:title="Dashboard" />
+    <item
         android:id="@+id/admin_home"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/ic_action_computer"
         android:title="Product" />
     <item
         android:id="@+id/admin_combo"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/ic_action_combo"
         android:title="Combo" />
     <item
         android:id="@+id/admin_profile"

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.egear.R;
 import com.example.egear.customer.combo.Combo;
@@ -32,6 +33,7 @@ public class ComboFragment extends Fragment {
     RecyclerView recyclerView;
     List<Combo> combos;
     ComboAdapter adapter;
+    ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class ComboFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.combo_recycler_view);
+        progressBar = view.findViewById(R.id.progressBar);
         getCombos();
         adapter = new ComboAdapter(combos);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -59,6 +62,7 @@ public class ComboFragment extends Fragment {
     }
 
     private void getCombos() {
+        progressBar.setVisibility(View.VISIBLE);
         combos = new ArrayList<>();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", getActivity().MODE_PRIVATE);
         String token = sharedPreferences.getString("accessToken", "");
@@ -75,6 +79,7 @@ public class ComboFragment extends Fragment {
             public void onResponse(Call<ComboResponse> call, Response<ComboResponse> response) {
                 if (!response.isSuccessful()) {
                     System.out.println("Code: " + response.code());
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 //                System.out.println(response.body().getData());
@@ -90,11 +95,13 @@ public class ComboFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ComboResponse> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

@@ -54,7 +54,7 @@ public class ProductFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.product_recycler_view_admin);
 
-        btnAdd = view.findViewById(R.id.buttonAdd);
+        btnAdd = view.findViewById(R.id.buttonAddProduct);
         btn1 = view.findViewById(R.id.button1);
         btn2 = view.findViewById(R.id.button2);
         btn3 = view.findViewById(R.id.button3);

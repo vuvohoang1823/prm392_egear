@@ -154,7 +154,7 @@ public class HomeFragment extends Fragment {
                 .build();
 
         ProductService jsonPlaceholder = retrofit.create(ProductService.class);
-        Call<ProductResponse> call = jsonPlaceholder.getProducts("Bearer " + token);
+        Call<ProductResponse> call = jsonPlaceholder.getActiveProducts("Bearer " + token);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {

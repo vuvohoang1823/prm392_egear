@@ -72,7 +72,7 @@ public class ComboFragment extends Fragment {
                 .build();
 
         ComboService comboService = retrofit.create(ComboService.class);
-        Call<ComboResponse> call = comboService.getCombos("Bearer " + token);
+        Call<ComboResponse> call = comboService.getActiveCombos("Bearer " + token);
 
         call.enqueue(new Callback<ComboResponse>() {
             @Override

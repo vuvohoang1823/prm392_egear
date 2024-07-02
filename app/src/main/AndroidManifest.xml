@@ -16,6 +16,7 @@
         android:theme="@style/Theme.Egear"
         tools:targetApi="31">
         <activity android:name=".admin.products.ProductDetail"/>
+        <activity android:name=".admin.combo.ComboDetail"/>
         <activity android:name=".customer.products.ProductDetail"/>
         <activity android:name=".customer.combo.ComboDetail"/>
         <activity android:name=".customer.order.Purchase"/>

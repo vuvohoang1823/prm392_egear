@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/btnBackDetailCombo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toTopOf="@id/scrollLayout"
+                app:srcCompat="@drawable/ic_action_back" />
+
+            <ImageView
+                android:id="@+id/btnSaveToFavorite"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintTop_toTopOf="@id/scrollLayout"
+                app:srcCompat="@drawable/baseline_bookmark_border_24" />
+
+            <ImageView
+                android:id="@+id/comboImage"
+                android:layout_width="match_parent"
+                android:layout_height="322dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toTopOf="@id/scrollLayout"
+                app:srcCompat="@drawable/mouse_sample" />
+
+            <TextView
+                android:id="@+id/comboName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:text="Name"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/comboImage" />
+
+            <TextView
+                android:id="@+id/comboPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:text="Price"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/comboImage" />
+
+
+            <TextView
+                android:id="@+id/comboPercentDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Percent discount"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/comboName" />
+
+            <TextView
+                android:id="@+id/comboDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="128dp"
+                android:text="Description"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/comboImage" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/admin_related_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="250dp"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/comboImage"
+                tools:ignore="MissingConstraints">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnEditCombo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_border"
+                android:text="Edit"
+                app:layout_constraintBottom_toBottomOf="@id/scrollLayout"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/admin_related_products"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDeleteCombo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_border"
+                android:text="Delete"
+                app:layout_constraintBottom_toBottomOf="@id/scrollLayout"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/admin_related_products"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/comboValueDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="84dp"
+                android:layout_marginEnd="32dp"
+                android:text="Value discount"
+                app:layout_constraintEnd_toEndOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/comboImage" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="36dp"
+                android:text="Products in this combo"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/scrollLayout"
+                app:layout_constraintTop_toBottomOf="@+id/comboDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,7 @@ public class ProductAddActivity extends AppCompatActivity {
 
       productImageAdminAdd = findViewById(R.id.productImageAdminAdd);
       productCategoryAdminAdd = findViewById(R.id.productCategoryAdminAdd);
+      ImageView backButton = (ImageView) findViewById(R.id.btnBackAdminAdd);
 
       // Set up Spinner with categories
       ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -51,5 +52,14 @@ public class ProductAddActivity extends AppCompatActivity {
             Toast.makeText(ProductAddActivity.this, "Choose Image To Upload", Toast.LENGTH_SHORT).show();
          }
       });
+
+      backButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            // go back to the previous activity
+            finish();
+         }
+      });
+
    }
 }

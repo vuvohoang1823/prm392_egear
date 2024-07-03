@@ -7,9 +7,10 @@
     <string name="previous">Previous</string>
 
     <string-array name="product_categories">
-        <item>Tablet</item>
-        <item>Laptop</item>
-        <item>Phone</item>
+        <item>TABLET</item>
+        <item>LAPTOP</item>
+        <item>PHONE</item>
+        <item>MOUSE</item>
     </string-array>
 
     <string name="lorem_ipsum">

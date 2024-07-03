@@ -24,8 +24,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground"
-    android:contentDescription="Choose Image To Upload"
-    android:onClick="onImageClickEdit" />
+        android:contentDescription="Choose Image To Upload"
+        android:onClick="onImageClick" />
 
     <EditText
         android:id="@+id/productNameAdminEdit"
@@ -62,13 +62,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productImageAdminEdit" />
 
+    <TextView
+        android:id="@+id/categoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Category:"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productNameAdminEdit" />
+
     <Spinner
         android:id="@+id/productCategoryAdminEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/categoryLabel"
         app:layout_constraintTop_toBottomOf="@+id/productNameAdminEdit" />
 
     <Button

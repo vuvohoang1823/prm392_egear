@@ -1,3 +1,4 @@
+// ProductEditActivity.java
 package com.example.egear.admin.products;
 
 import android.content.Intent;
@@ -29,7 +30,7 @@ public class ProductEditActivity extends AppCompatActivity {
    @Override
    protected void onCreate(@Nullable Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.admin_edit_product); // replace with your actual layout file name
+      setContentView(R.layout.admin_edit_product);
 
       productImageAdminEdit = findViewById(R.id.productImageAdminEdit);
       productCategoryAdminEdit = findViewById(R.id.productCategoryAdminEdit);
@@ -42,7 +43,7 @@ public class ProductEditActivity extends AppCompatActivity {
       Intent intent = getIntent();
       product = (Product) intent.getSerializableExtra("product");
 
-      // Set up Spinner with categories
+      // Set up Spinner with categories from strings.xml
       ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
               R.array.product_categories, android.R.layout.simple_spinner_item);
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

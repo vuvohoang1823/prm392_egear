@@ -116,7 +116,7 @@ public class CartFragment extends Fragment {
         if (carts != null) {
             emptyCartSection.setVisibility(View.GONE);
             for (com.example.egear.room.Cart cart : carts) {
-                cartItemList.add(new Cart(cart.getId(), cart.getName(), cart.getPrice(), 1, cart.getImage()));
+                cartItemList.add(new Cart(cart.getId(), cart.getName(), cart.getPrice(), 1, cart.getCategory(), cart.getImage()));
             }
         }
     }

@@ -14,10 +14,10 @@ public class Combo {
     private Long products_total;
     private String img_url;
     private String discount_by_percent;
-    private Long discount_by_value;
+    private String discount_by_value;
     private int quantity;
 
-    public Combo(@NonNull Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, Long discount_by_value, int quantity) {
+    public Combo(@NonNull Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, String discount_by_value, int quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -77,11 +77,11 @@ public class Combo {
         this.discount_by_percent = discount_by_percent;
     }
 
-    public Long getDiscount_by_value() {
+    public String getDiscount_by_value() {
         return discount_by_value;
     }
 
-    public void setDiscount_by_value(Long discount_by_value) {
+    public void setDiscount_by_value(String discount_by_value) {
         this.discount_by_value = discount_by_value;
     }
 

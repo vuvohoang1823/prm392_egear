@@ -42,6 +42,9 @@ public class ProductDetail extends AppCompatActivity {
          @Override
          public void onClick(View v) {
             // Thực hiện chức năng sửa sản phẩm
+            Intent intent = new Intent(ProductDetail.this, ProductEditActivity.class);
+            startActivity(intent);
+
          }
       });
 

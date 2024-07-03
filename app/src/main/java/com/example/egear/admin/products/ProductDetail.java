@@ -1,4 +1,5 @@
 package com.example.egear.admin.products;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +28,7 @@ public class ProductDetail extends AppCompatActivity {
       TextView productPrice = findViewById(R.id.productPriceAdmin);
       TextView productCategory = findViewById(R.id.productCategoryAdmin);
       TextView productDescription = findViewById(R.id.productDescriptionAdmin);
-      ImageView backButton = findViewById(R.id.btnBackAdmin);
+      ImageView backButton = findViewById(R.id.btnBackAdminEdit);
 
       Glide.with(this).load(product.getImageUrl()).into(imageView);
       productName.setText(product.getName());
@@ -41,7 +42,10 @@ public class ProductDetail extends AppCompatActivity {
       editButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            // Thực hiện chức năng sửa sản phẩm
+            // Pass the product object to ProductEditActivity
+            Intent intent = new Intent(ProductDetail.this, ProductEditActivity.class);
+            intent.putExtra("product", product);
+            startActivity(intent);
          }
       });
 

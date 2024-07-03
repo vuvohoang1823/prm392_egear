@@ -12,11 +12,11 @@ public class ComboCart implements Serializable {
     private Long products_total;
     private String img_url;
     private String discount_by_percent;
-    private Long discount_by_value;
+    private String discount_by_value;
     private List<Product> products;
     private int quantity;
 
-    public ComboCart(Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, Long discount_by_value, int quantity) {
+    public ComboCart(Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, String discount_by_value, int quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -83,11 +83,11 @@ public class ComboCart implements Serializable {
         this.discount_by_percent = discount_by_percent;
     }
 
-    public Long getValueDiscount() {
+    public String getValueDiscount() {
         return discount_by_value;
     }
 
-    public void setValueDiscount(Long discount_by_value) {
+    public void setValueDiscount(String discount_by_value) {
         this.discount_by_value = discount_by_value;
     }
 

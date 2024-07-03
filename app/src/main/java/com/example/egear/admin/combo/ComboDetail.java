@@ -109,6 +109,7 @@ public class ComboDetail extends AppCompatActivity {
                 }
 //                System.out.println(response.body().getData().getProducts());
                 products.addAll(response.body().getData().getProducts());
+                combo.setProducts(products);
                 adapter = new ProductAdapter(products);
                 // horizontal recyclerView
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));

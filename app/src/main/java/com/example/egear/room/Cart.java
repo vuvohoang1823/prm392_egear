@@ -10,7 +10,6 @@ public class Cart {
     @NonNull
     private Long id;
     private String name;
-    private String description;
     private Long price;
     private String image;
     private String category;
@@ -19,10 +18,9 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(@NonNull Long id, String name, String description, Long price, String imageUrl, String category, int quantity) {
+    public Cart(@NonNull Long id, String name, Long price, String imageUrl, String category, int quantity) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.price = price;
         this.image = imageUrl;
         this.category = category;
@@ -43,14 +41,6 @@ public class Cart {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Long getPrice() {
@@ -83,5 +73,17 @@ public class Cart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", category='" + category + '\'' +
+                ", quantity=" + quantity +
+                '}';
     }
 }

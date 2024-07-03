@@ -58,6 +58,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Glide.with(holder.itemView.getContext()).load(product.getImageUrl()).into(holder.productImage);
         holder.productCheckbox.setChecked(selectedItems.contains(product));
 
+        if(!selectedItems.isEmpty()) {
+            selectedItems.forEach(item -> {
+                if(item.getId().equals(product.getId())) {
+                    holder.productCheckbox.setChecked(true);
+                }
+            });
+        }
+
         holder.productCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 selectedItems.add(product);
@@ -66,7 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
         });
 
-        Log.d("SelectedItems Adapter", selectedItems.toString());
+//        Log.d("SelectedItems Adapter", String.valueOf(selectedItems.contains(product)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

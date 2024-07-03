@@ -12,10 +12,13 @@ public class Combo implements Serializable{
     private Long products_total;
     private String img_url;
     private String discount_by_percent;
-    private Long discount_by_value;
+    private String discount_by_value;
     private List<Product> products;
 
-    public Combo(Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, Long discount_by_value) {
+    public Combo() {
+    }
+
+    public Combo(Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, String discount_by_value) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -25,13 +28,13 @@ public class Combo implements Serializable{
         this.discount_by_value = discount_by_value;
     }
 
-//    public Combo(String name, String description, Long products_total, String discount_by_percent, Long discount_by_value) {
-//        this.name = name;
-//        this.description = description;
-//        this.products_total = products_total;
-//        this.discount_by_percent = discount_by_percent;
-//        this.discount_by_value = discount_by_value;
-//    }
+    public Combo(String name, String description, String discount_by_percent, String discount_by_value, List<Product> products) {
+        this.name = name;
+        this.description = description;
+        this.discount_by_percent = discount_by_percent;
+        this.discount_by_value = discount_by_value;
+        this.products = products;
+    }
 
     public Long getId() {
         return id;
@@ -69,7 +72,7 @@ public class Combo implements Serializable{
         return img_url;
     }
 
-    public void setImageUrl(String image_url) {
+    public void setImageUrl(String img_url) {
         this.img_url = img_url;
     }
 
@@ -81,11 +84,11 @@ public class Combo implements Serializable{
         this.discount_by_percent = discount_by_percent;
     }
 
-    public Long getValueDiscount() {
+    public String getValueDiscount() {
         return discount_by_value;
     }
 
-    public void setValueDiscount(Long discount_by_value) {
+    public void setValueDiscount(String discount_by_value) {
         this.discount_by_value = discount_by_value;
     }
 
@@ -95,5 +98,19 @@ public class Combo implements Serializable{
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Combo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", products_total=" + products_total +
+                ", img_url='" + img_url + '\'' +
+                ", discount_by_percent='" + discount_by_percent + '\'' +
+                ", discount_by_value=" + discount_by_value +
+                ", products=" + products +
+                '}';
     }
 }

@@ -58,7 +58,7 @@ public class ProductDetail extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartDAO.insert(new Cart(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getImageUrl(), product.getCategory(), 1));
+                cartDAO.insert(new Cart(product.getId(), product.getName(), product.getPrice(), product.getImageUrl(), product.getCategory(), 1));
 
                 List<Cart> carts = cartDAO.getCarts();
                 System.out.println(carts);

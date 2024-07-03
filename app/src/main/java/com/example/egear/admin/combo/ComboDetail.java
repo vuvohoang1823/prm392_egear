@@ -38,6 +38,7 @@ public class ComboDetail extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Product> products;
     ProductAdapter adapter;
+    Button btnEdit, btnDelete;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,8 @@ public class ComboDetail extends AppCompatActivity {
         TextView comboValueDiscount = findViewById(R.id.comboValueDiscount);
         ImageView comboImage = findViewById(R.id.comboImage);
         ImageView backButton = (ImageView) findViewById(R.id.btnBackDetailCombo);
+        btnEdit = findViewById(R.id.btnEditCombo);
+        btnDelete = findViewById(R.id.btnDeleteCombo);
 
         comboName.setText(combo.getName());
         comboDescription.setText(combo.getDescription());
@@ -67,6 +70,14 @@ public class ComboDetail extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
 
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddEditCombo.class);
+                intent.putExtra("combo", combo);
+                startActivity(intent);
+            }
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

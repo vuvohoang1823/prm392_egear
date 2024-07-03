@@ -6,7 +6,6 @@
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -14,13 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Egear"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity android:name=".admin.products.ProductDetail"/>
-        <activity android:name=".customer.products.ProductDetail"/>
-        <activity android:name=".customer.combo.ComboDetail"/>
-        <activity android:name=".customer.order.Purchase"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".AdminActivity"/>
+        <activity android:name=".admin.products.ProductDetail" />
+        <activity android:name=".customer.products.ProductDetail" />
+        <activity android:name=".customer.combo.ComboDetail" />
+        <activity android:name=".customer.order.Purchase" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".admin.products.ProductAddActivity" />
+        <activity android:name=".admin.products.ProductEditActivity" />
+
         <activity
             android:name=".customer.order.OrderActivity"
             android:exported="false"

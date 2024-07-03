@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/btnBackAdmin"
+        android:id="@+id/btnBackAdminAdd"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
@@ -16,82 +16,71 @@
         app:srcCompat="@drawable/ic_action_back" />
 
     <ImageView
-        android:id="@+id/productImageAdmin"
+        android:id="@+id/productImageAdminAdd"
         android:layout_width="411dp"
         android:layout_height="420dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mouse_sample" />
+        app:srcCompat="@drawable/ic_launcher_foreground"
+    android:contentDescription="Choose Image To Upload"
+    android:onClick="onImageClickAdd" />
 
-    <TextView
-        android:id="@+id/productNameAdmin"
+    <EditText
+        android:id="@+id/productNameAdminAdd"
         android:layout_width="261dp"
         android:layout_height="81dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:text="Name"
+        android:hint="Name"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImageAdmin" />
+        app:layout_constraintTop_toBottomOf="@+id/productImageAdminAdd" />
 
-    <TextView
-        android:id="@+id/productPriceAdmin"
+    <EditText
+        android:id="@+id/productPriceAdminAdd"
         android:layout_width="75dp"
         android:layout_height="79dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
-        android:text="Price"
+        android:hint="Price"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImageAdmin" />
+        app:layout_constraintTop_toBottomOf="@+id/productImageAdminAdd" />
 
-    <TextView
-        android:id="@+id/productDescriptionAdmin"
+    <EditText
+        android:id="@+id/productDescriptionAdminAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="164dp"
-        android:text="Description"
+        android:hint="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImageAdmin" />
+        app:layout_constraintTop_toBottomOf="@+id/productImageAdminAdd" />
 
-    <TextView
-        android:id="@+id/productCategoryAdmin"
+    <Spinner
+        android:id="@+id/productCategoryAdminAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="Category"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productNameAdmin" />
+        app:layout_constraintTop_toBottomOf="@+id/productNameAdminAdd" />
 
     <Button
-        android:id="@+id/btnEditProduct"
+        android:id="@+id/btnConfirmProductAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:layout_marginHorizontal="20dp"
-        android:text="Edit"
-        app:layout_constraintTop_toBottomOf="@+id/productDescriptionAdmin"
+        android:text="Confirm"
+        app:layout_constraintTop_toBottomOf="@+id/productDescriptionAdminAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnDeleteProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Delete"
-        app:layout_constraintTop_toBottomOf="@+id/btnEditProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

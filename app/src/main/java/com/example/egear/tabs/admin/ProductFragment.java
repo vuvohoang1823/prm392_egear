@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.egear.R;
+import com.example.egear.admin.products.ProductAddActivity;
 import com.example.egear.customer.products.Product;
 import com.example.egear.admin.products.ProductAdapter;
 import com.example.egear.admin.products.ProductDetail;
@@ -71,6 +72,8 @@ public class ProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Chuyển đến màn hình thêm sản phẩm
+                Intent intent = new Intent(getActivity(), ProductAddActivity.class);
+                startActivity(intent);
             }
         });
 

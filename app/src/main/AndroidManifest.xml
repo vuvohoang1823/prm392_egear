@@ -25,6 +25,10 @@
         <activity android:name=".admin.products.ProductAddActivity" />
         <activity android:name=".admin.products.ProductEditActivity" />
         <activity
+            android:name=".admin.combo.AddEditCombo"
+            android:label="Add Combo"
+            android:theme="@style/Theme.Material3.DayNight" />
+        <activity
             android:name=".customer.order.OrderActivity"
             android:exported="false"
             android:theme="@style/Theme.Egear" />

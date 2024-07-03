@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.egear.R;
+import com.example.egear.admin.combo.AddEditCombo;
 import com.example.egear.admin.combo.ComboAdapter;
 import com.example.egear.admin.combo.ComboDetail;
 import com.example.egear.customer.combo.Combo;
@@ -59,6 +60,14 @@ public class ComboFragment extends Fragment {
             public void onItemClick(Combo combo, int position) {
                 Intent intent = new Intent(getActivity(), ComboDetail.class);
                 intent.putExtra("combo", combo);
+                startActivity(intent);
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddEditCombo.class);
                 startActivity(intent);
             }
         });

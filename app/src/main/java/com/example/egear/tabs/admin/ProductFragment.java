@@ -18,12 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.egear.R;
-import com.example.egear.admin.products.ProductAddActivity;
+import com.example.egear.admin.products.AddEditProduct;
 import com.example.egear.customer.products.Product;
 import com.example.egear.admin.products.ProductAdapter;
 import com.example.egear.admin.products.ProductDetail;
 import com.example.egear.customer.products.ProductResponse;
 import com.example.egear.customer.products.ProductService;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ProductFragment extends Fragment {
     RecyclerView recyclerView;
     List<Product> products;
     ProductAdapter adapter;
-    ImageView btnAdd;
+    ImageView btnAdd, btnFilter;
     Button btn1, btn2, btn3, btn4, btn5;
     TextView noProduct;
     ProgressBar progressBar;
@@ -56,6 +57,7 @@ public class ProductFragment extends Fragment {
         recyclerView = view.findViewById(R.id.product_recycler_view_admin);
 
         btnAdd = view.findViewById(R.id.buttonAddProduct);
+        btnFilter = view.findViewById(R.id.buttonFilterProduct);
         btn1 = view.findViewById(R.id.button1);
         btn2 = view.findViewById(R.id.button2);
         btn3 = view.findViewById(R.id.button3);
@@ -72,8 +74,57 @@ public class ProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Chuyển đến màn hình thêm sản phẩm
-                Intent intent = new Intent(getActivity(), ProductAddActivity.class);
+                Intent intent = new Intent(getActivity(), AddEditProduct.class);
                 startActivity(intent);
+            }
+        });
+
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_sheet_filter, null);
+                Button btnAll = view.findViewById(R.id.buttonAll);
+                Button btnActive = view.findViewById(R.id.buttonActive);
+                Button btnDeleted = view.findViewById(R.id.buttonDeleted);
+                bottomSheetDialog.setContentView(view);
+                bottomSheetDialog.show();
+
+                btnAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                        setAdapter(products);
+                    }
+                });
+
+                btnActive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                        List<Product> activeProducts = new ArrayList<>();
+                        for(Product product : products) {
+                            if(product.getStatus().equals("ACTIVE")) {
+                                activeProducts.add(product);
+                            }
+                        }
+                        setAdapter(activeProducts);
+                    }
+                });
+
+                btnDeleted.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                        List<Product> deletedProducts = new ArrayList<>();
+                        for(Product product : products) {
+                            if(product.getStatus().equals("DELETED")) {
+                                deletedProducts.add(product);
+                            }
+                        }
+                        setAdapter(deletedProducts);
+                    }
+                });
             }
         });
 

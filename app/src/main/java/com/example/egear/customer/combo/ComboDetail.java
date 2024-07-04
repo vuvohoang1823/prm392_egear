@@ -89,7 +89,7 @@ public class ComboDetail extends AppCompatActivity {
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comboDAO.insert(new com.example.egear.room.Combo(combo.getId(), combo.getName(), combo.getDescription(), combo.getPrice(), combo.getImageUrl(), combo.getPercentDiscount(), combo.getValueDiscount(), 1));
+                comboDAO.insert(new com.example.egear.room.Combo(combo.getId(), combo.getName(), combo.getDescription(), Long.parseLong(combo.getPrice()), combo.getImageUrl(), combo.getPercentDiscount(), combo.getValueDiscount(), 1));
 
                 List<com.example.egear.room.Combo> combos = comboDAO.getCombos();
                 System.out.println(combos);

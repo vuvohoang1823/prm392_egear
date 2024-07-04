@@ -10,6 +10,7 @@ public class Product implements Serializable {
     private String image_url;
     private String category;
     private int quantity;
+    private String status;
 
     public Product(Long id, String name, String description, Long price, String image_url, String category, int quantity) {
         this.id = id;
@@ -86,6 +87,14 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -96,6 +105,7 @@ public class Product implements Serializable {
                 ", imageUrl='" + image_url + '\'' +
                 ", category='" + category + '\'' +
                 ", stockQuantity=" + quantity +
+                ", status='" + status + "'" +
                 '}';
     }
 }

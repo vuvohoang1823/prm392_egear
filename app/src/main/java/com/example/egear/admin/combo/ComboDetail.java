@@ -39,6 +39,7 @@ public class ComboDetail extends AppCompatActivity {
     List<Product> products;
     ProductAdapter adapter;
     Button btnEdit, btnDelete;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +80,21 @@ public class ComboDetail extends AppCompatActivity {
             }
         });
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+                String token = sharedPreferences.getString("accessToken", "");
+
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl("http://10.0.2.2:9999/api/v1/")
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                ComboService jsonPlaceholder = retrofit.create(ComboService.class);
+//                Call<Void> call = jsonPlaceholder.deleteCombo("Bearer " + token, combo.getId());
+            }
+        });
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +119,7 @@ public class ComboDetail extends AppCompatActivity {
         call.enqueue(new Callback<ComboDetailResponse>() {
             @Override
             public void onResponse(Call<ComboDetailResponse> call, Response<ComboDetailResponse> response) {
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     System.out.println("Code: " + response.code());
                     return;
                 }

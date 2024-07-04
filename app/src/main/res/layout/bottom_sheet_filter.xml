@@ -9,24 +9,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
+        android:id="@+id/textView17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
+        android:text="Filter by status"
+        android:textSize="20dp"
+        android:paddingVertical="12dp"
         android:layout_marginBottom="12dp"
-        android:text="Button" />
+        android:textStyle="bold"
+        android:textAlignment="center"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_border"
         android:layout_marginBottom="12dp"
-        android:text="Button" />
+        android:text="All" />
+
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonActive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_border"
         android:layout_marginBottom="12dp"
-        android:text="Button" />
+        android:text="Active" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonDeleted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border"
+        android:layout_marginBottom="12dp"
+        android:text="Deleted" />
 
 </LinearLayout>

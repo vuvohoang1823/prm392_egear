@@ -54,4 +54,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewPriceAdmin"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/textViewQuantityAdmin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Quantity"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewImageAdmin"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategoryAdmin"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewStatusAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Status"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantityAdmin" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

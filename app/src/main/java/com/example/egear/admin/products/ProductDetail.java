@@ -1,6 +1,7 @@
 package com.example.egear.admin.products;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.egear.R;
 import com.example.egear.customer.products.Product;
+import com.example.egear.customer.products.ProductService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductDetail extends AppCompatActivity {
    @Override
@@ -43,7 +51,7 @@ public class ProductDetail extends AppCompatActivity {
          @Override
          public void onClick(View v) {
             // Pass the product object to ProductEditActivity
-            Intent intent = new Intent(ProductDetail.this, ProductEditActivity.class);
+            Intent intent = new Intent(ProductDetail.this, AddEditProduct.class);
             intent.putExtra("product", product);
             startActivity(intent);
          }
@@ -53,6 +61,7 @@ public class ProductDetail extends AppCompatActivity {
          @Override
          public void onClick(View v) {
             // Thực hiện chức năng xóa sản phẩm
+            deleteProduct(product);
          }
       });
 
@@ -63,4 +72,32 @@ public class ProductDetail extends AppCompatActivity {
          }
       });
    }
+
+    private void deleteProduct(Product product) {
+       SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+       String token = sharedPreferences.getString("accessToken", "");
+
+       Retrofit retrofit = new Retrofit.Builder()
+               .baseUrl("http://10.0.2.2:9999/api/v1/")
+               .addConverterFactory(GsonConverterFactory.create())
+               .build();
+       ProductService productService = retrofit.create(ProductService.class);
+       Call<Void> call = productService.deleteProduct("Bearer " + token, product.getId());
+       call.enqueue(new Callback<Void>() {
+          @Override
+          public void onResponse(Call<Void> call, Response<Void> response) {
+             if (!response.isSuccessful()) {
+                System.out.println("Code: " + response.body());
+                return;
+             }
+             Toast.makeText(ProductDetail.this, "Product deleted successfully", Toast.LENGTH_SHORT).show();
+             finish();
+          }
+
+          @Override
+          public void onFailure(Call<Void> call, Throwable t) {
+             System.out.println("Error: " + t.getMessage());
+          }
+       });
+    }
 }

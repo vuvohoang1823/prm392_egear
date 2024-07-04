@@ -28,6 +28,17 @@
         app:shapeAppearanceOverlay="@style/RoundedImageView"
         app:srcCompat="@drawable/ic_action_add" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/buttonFilterCombo"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
+        app:srcCompat="@drawable/ic_action_filter" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/admin_combo_recycler_view"
         android:layout_width="408dp"
@@ -47,6 +58,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="420dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/no_combo_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="184dp"
+        android:text="No combos you are looking for"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

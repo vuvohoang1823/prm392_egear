@@ -5,11 +5,12 @@ import com.example.egear.customer.products.Product;
 import java.io.Serializable;
 import java.util.List;
 
-public class Combo implements Serializable{
+public class Combo implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private Long products_total;
+    private String status;
+    private String products_total;
     private String img_url;
     private String discount_by_percent;
     private String discount_by_value;
@@ -18,7 +19,7 @@ public class Combo implements Serializable{
     public Combo() {
     }
 
-    public Combo(Long id, String name, String description, Long products_total, String img_url, String discount_by_percent, String discount_by_value) {
+    public Combo(Long id, String name, String description, String products_total, String img_url, String discount_by_percent, String discount_by_value) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -60,11 +61,19 @@ public class Combo implements Serializable{
         this.description = description;
     }
 
-    public Long getPrice() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPrice() {
         return products_total;
     }
 
-    public void setPrice(Long products_total) {
+    public void setPrice(String products_total) {
         this.products_total = products_total;
     }
 
@@ -106,6 +115,7 @@ public class Combo implements Serializable{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
                 ", products_total=" + products_total +
                 ", img_url='" + img_url + '\'' +
                 ", discount_by_percent='" + discount_by_percent + '\'' +

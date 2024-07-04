@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.egear.AdminActivity;
 import com.example.egear.R;
 import com.example.egear.customer.combo.Combo;
+import com.example.egear.customer.combo.ComboService;
 import com.example.egear.customer.products.Product;
 import com.example.egear.customer.products.ProductResponse;
 import com.example.egear.customer.products.ProductService;
@@ -55,8 +57,8 @@ public class AddEditCombo extends AppCompatActivity {
     Button btnSave;
     List<Product> selectedItems = new ArrayList<>();
     Uri uri;
-    String imageUrl = "";
-    Combo combo;
+    Long imageId = null;
+    AddComboRequest combo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,8 @@ public class AddEditCombo extends AppCompatActivity {
             comboId = combo.getId();
             name.setText(combo.getName());
             description.setText(combo.getDescription());
-            percentDiscount.setText(String.valueOf(combo.getPercentDiscount()));
-            valueDiscount.setText(String.valueOf(combo.getValueDiscount()));
+            percentDiscount.setText(combo.getPercentDiscount().replace("%", ""));
+            valueDiscount.setText(combo.getValueDiscount());
             totalPrice.setText(String.valueOf(combo.getPrice()));
             Glide.with(this).load(combo.getImageUrl()).into(btnAddImage);
             selectedItems = combo.getProducts();
@@ -98,27 +100,36 @@ public class AddEditCombo extends AppCompatActivity {
         // check all input fields and selected items
         btnSave.setOnClickListener(v -> {
             if (editMode) {
+                // update combo
                 if (isImageChanged) {
-                    Toast.makeText(this, "Update Combo", Toast.LENGTH_SHORT).show();
-                    combo = new Combo(name.getText().toString(), description.getText().toString(), percentDiscount.getText().toString(), valueDiscount.getText().toString(), selectedItems);
+                    combo = new AddComboRequest(name.getText().toString(), description.getText().toString(), "ACTIVE", String.valueOf(Double.parseDouble(percentDiscount.getText().toString().replace("%", ""))/100), Long.parseLong(valueDiscount.getText().toString()));
                     // upload new image
                     uploadImage(uri, imageUrl -> {
                         Log.d("Combo", combo.toString());
+                        updateCombo();
                     });
                 } else {
-                    Toast.makeText(this, "Update Combo", Toast.LENGTH_SHORT).show();
-                    Combo combo = new Combo(name.getText().toString(), description.getText().toString(), percentDiscount.getText().toString(), valueDiscount.getText().toString(), selectedItems);
+                    combo = new AddComboRequest(name.getText().toString(), description.getText().toString(), "ACTIVE", String.valueOf(Double.parseDouble(percentDiscount.getText().toString().replace("%", ""))/100), Long.parseLong(valueDiscount.getText().toString()));
                     Log.d("Combo", combo.toString());
+                    updateCombo();
                 }
             } else {
+                // add combo
                 if (name.getText().toString().isEmpty() || description.getText().toString().isEmpty() || percentDiscount.getText().toString().isEmpty() || valueDiscount.getText().toString().isEmpty() || selectedItems.isEmpty() || !isImageChanged) {
                     Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Add Combo", Toast.LENGTH_SHORT).show();
-                    combo = new Combo(name.getText().toString(), description.getText().toString(), percentDiscount.getText().toString(), valueDiscount.getText().toString(), selectedItems);
+                    combo = new AddComboRequest(name.getText().toString(), description.getText().toString(), "ACTIVE", String.valueOf(Double.parseDouble(percentDiscount.getText().toString()) / 100), Long.parseLong(valueDiscount.getText().toString()));
+                    List<Long> productIds = new ArrayList<>();
+                    for (Product product : selectedItems) {
+                        if (product.getId() != null) {
+                            productIds.add(product.getId());
+                        }
+                    }
+                    combo.setProduct_ids(productIds);
                     // upload new image
                     uploadImage(uri, imageUrl -> {
                         Log.d("Combo", combo.toString());
+                        addCombo();
                     });
                 }
             }
@@ -143,7 +154,7 @@ public class AddEditCombo extends AppCompatActivity {
     }
 
     private interface UploadImageCallback {
-        void onUploadFinished(String imageUrl);
+        void onUploadFinished(Long imageId);
     }
 
     private void getProducts() {
@@ -219,10 +230,9 @@ public class AddEditCombo extends AppCompatActivity {
                         System.out.println("Code: " + response.body());
                         return;
                     }
-                    Log.d("Image", response.body().getData().get(0).getMedia_url());
-                    imageUrl = response.body().getData().get(0).getMedia_url();
-                    combo.setImageUrl(imageUrl);
-                    callback.onUploadFinished(imageUrl);
+                    imageId = response.body().getData().get(0).getId();
+                    combo.setMain_media_id(imageId);
+                    callback.onUploadFinished(imageId);
                 }
 
                 @Override
@@ -233,5 +243,64 @@ public class AddEditCombo extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addCombo() {
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("accessToken", "");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:9999/api/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ComboService comboService = retrofit.create(ComboService.class);
+        Log.d("Combo", combo.toString());
+        Call<AddComboResponse> call = comboService.createCombo("Bearer " + token, combo);
+        call.enqueue(new Callback<AddComboResponse>() {
+            @Override
+            public void onResponse(Call<AddComboResponse> call, Response<AddComboResponse> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Combo", response.message());
+                    System.out.println("Code: " + response.code());
+                    return;
+                }
+//                Log.d("Added combo", response.body().getMessage() == "" );
+                Toast.makeText(AddEditCombo.this, "Combo added successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<AddComboResponse> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    private void updateCombo() {
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("accessToken", "");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:9999/api/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ComboService comboService = retrofit.create(ComboService.class);
+        Call<AddComboResponse> call = comboService.updateCombo("Bearer " + token, comboId, combo);
+        call.enqueue(new Callback<AddComboResponse>() {
+            @Override
+            public void onResponse(Call<AddComboResponse> call, Response<AddComboResponse> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("Code: " + response.code());
+                    return;
+                }
+                Toast.makeText(AddEditCombo.this, "Combo updated successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<AddComboResponse> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
     }
 }

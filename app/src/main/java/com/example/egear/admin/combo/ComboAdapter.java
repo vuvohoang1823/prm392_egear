@@ -29,7 +29,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
     public ComboAdapter.ComboViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context parentContext = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(parentContext);
-        View view = layoutInflater.from(parent.getContext()).inflate(R.layout.row_combo, parent, false);
+        View view = layoutInflater.from(parent.getContext()).inflate(R.layout.admin_row_combo, parent, false);
         ComboAdapter.ComboViewHolder viewHolder = new ComboAdapter.ComboViewHolder(view);
         return viewHolder;
     }
@@ -38,12 +38,16 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
     public void onBindViewHolder(@NonNull ComboAdapter.ComboViewHolder holder, int position) {
         Combo combo = combos.get(position);
         holder.comboName.setText(combo.getName());
-//        holder.comboDescription.setText(combo.getDescription());
-//        holder.comboValueDiscount.setText(combo.getValueDiscount().toString());
         holder.comboPercentDiscount.setText(combo.getPercentDiscount() + " OFF");
         holder.comboPrice.setText(combo.getPrice().toString() + " $");
-//        holder.comboImage.setImageResource(combo.getImage());
         Glide.with(holder.itemView.getContext()).load(combo.getImageUrl()).into(holder.comboImage);
+        holder.comboStatus.setText(combo.getStatus());
+
+        if (combo.getStatus().equals("ACTIVE")) {
+            holder.comboStatus.setTextColor(holder.itemView.getResources().getColor(R.color.green));
+        } else if (combo.getStatus().equals("DELETED")) {
+            holder.comboStatus.setTextColor(holder.itemView.getResources().getColor(R.color.red));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,16 +66,15 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
 
     public static class ComboViewHolder extends RecyclerView.ViewHolder {
         ImageView comboImage;
-        TextView comboName, comboDescription, comboValueDiscount, comboPercentDiscount, comboPrice;
+        TextView comboName, comboStatus, comboPercentDiscount, comboPrice;
 
         public ComboViewHolder(@NonNull View itemView) {
             super(itemView);
             comboImage = itemView.findViewById(R.id.combo_image);
             comboName = itemView.findViewById(R.id.combo_name);
-//            comboDescription = itemView.findViewById(R.id.combo_description);
-//            comboValueDiscount = itemView.findViewById(R.id.value_discount);
             comboPrice = itemView.findViewById(R.id.combo_price);
             comboPercentDiscount = itemView.findViewById(R.id.percent_discount);
+            comboStatus = itemView.findViewById(R.id.combo_status);
         }
     }
 

@@ -15,18 +15,20 @@
         android:theme="@style/Theme.Egear"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity android:name=".admin.products.ProductDetail"/>
-        <activity android:name=".admin.combo.ComboDetail"/>
-        <activity android:name=".customer.products.ProductDetail"/>
-        <activity android:name=".customer.combo.ComboDetail"/>
-        <activity android:name=".customer.order.Purchase"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".AdminActivity"/>
-        <activity android:name=".admin.products.ProductAddActivity" />
-        <activity android:name=".admin.products.ProductEditActivity" />
+        <activity android:name=".admin.products.ProductDetail" />
+        <activity android:name=".admin.combo.ComboDetail" />
+        <activity android:name=".customer.products.ProductDetail" />
+        <activity android:name=".customer.combo.ComboDetail" />
+        <activity android:name=".customer.order.Purchase" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity
+            android:name=".admin.products.AddEditProduct"
+            android:label="Product Form"
+            android:theme="@style/Theme.Material3.DayNight" />
         <activity
             android:name=".admin.combo.AddEditCombo"
-            android:label="Add Combo"
+            android:label="Combo Form"
             android:theme="@style/Theme.Material3.DayNight" />
         <activity
             android:name=".customer.order.OrderActivity"

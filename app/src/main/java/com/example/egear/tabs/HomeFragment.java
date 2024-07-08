@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment {
     List<Product> products;
     ProductAdapter adapter;
     Button btn1, btn2, btn3, btn4, btn5;
-    ImageView filterButton;
     TextView noProduct;
     ProgressBar progressBar;
 
@@ -58,7 +57,6 @@ public class HomeFragment extends Fragment {
         btn3 = view.findViewById(R.id.button3);
         btn4 = view.findViewById(R.id.button4);
         btn5 = view.findViewById(R.id.button5);
-        filterButton = view.findViewById(R.id.filterBtn);
         noProduct = view.findViewById(R.id.no_product_found);
         progressBar = view.findViewById(R.id.progressBar);
 
@@ -128,16 +126,6 @@ public class HomeFragment extends Fragment {
                     }
                 }
                 setAdapter(filteredProducts);
-            }
-        });
-
-        filterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
-                View view = LayoutInflater.from(getActivity()).inflate(R.layout.bottom_sheet_filter, null);
-                bottomSheetDialog.setContentView(view);
-                bottomSheetDialog.show();
             }
         });
     }

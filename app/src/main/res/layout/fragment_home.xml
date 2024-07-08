@@ -18,17 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/filterBtn"
-        android:layout_width="43dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/RoundedImageView"
-        app:srcCompat="@drawable/ic_action_filter" />
-
     <HorizontalScrollView
         android:id="@+id/filter_scroll_view"
         android:layout_width="match_parent"

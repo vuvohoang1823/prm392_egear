@@ -87,4 +87,18 @@ public class UserProfile {
     public void setAvatar_url(String avatar_url) {
         this.avatar_url = avatar_url;
     }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", avatar_url='" + avatar_url + '\'' +
+                '}';
+    }
 }

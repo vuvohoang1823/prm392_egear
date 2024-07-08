@@ -260,11 +260,11 @@ public class ProductFragment extends Fragment {
     }
 
     private void lookSelectedButton(Button button) {
-        button.setBackgroundColor(getResources().getColor(R.color.cyan));
+        button.setSelected(true);
     }
 
     private void lookUnSelectedButton(Button button) {
-        button.setBackgroundColor(getResources().getColor(R.color.white));
+        button.setSelected(false);
     }
 
     private void unSelectAllButtons() {

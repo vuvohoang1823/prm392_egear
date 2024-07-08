@@ -35,7 +35,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:labelVisibilityMode="selected"
+        android:background="#80C4E9"
         app:layout_anchor="@+id/flFragment"
         app:layout_anchorGravity="bottom"
-        app:menu="@menu/customer_bottom_menu" />
+        app:menu="@menu/customer_bottom_menu"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

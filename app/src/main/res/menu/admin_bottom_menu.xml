@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/admin_dashboard"
         android:icon="@drawable/ic_action_chart"
-        android:title="Dashboard" />
+        android:title="Dashboard"
+        app:iconTint="@color/nav_item_color"
+        />
     <item
         android:id="@+id/admin_home"
+        app:iconTint="@color/nav_item_color"
         android:icon="@drawable/ic_action_computer"
         android:title="Product" />
     <item
         android:id="@+id/admin_combo"
+        app:iconTint="@color/nav_item_color"
         android:icon="@drawable/ic_action_combo"
         android:title="Combo" />
     <item
         android:id="@+id/admin_profile"
+        app:iconTint="@color/nav_item_color"
         android:icon="@drawable/ic_action_profile"
         android:title="Profile" />
 </menu>

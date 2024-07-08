@@ -24,7 +24,6 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         replaceFragment(new DashboardFragment());
-        binding.bottomNavigationViewAdmin.setBackground(null);
         binding.bottomNavigationViewAdmin.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             int itemId = item.getItemId();

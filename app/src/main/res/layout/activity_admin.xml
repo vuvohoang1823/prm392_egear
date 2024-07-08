@@ -23,9 +23,13 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationViewAdmin"
             android:layout_width="wrap_content"
+            android:background="#80C4E9"
             android:layout_height="wrap_content"
             app:labelVisibilityMode="selected"
             app:layout_anchor="@+id/flFragmentAdmin"
             app:layout_anchorGravity="bottom"
-            app:menu="@menu/admin_bottom_menu" />
+            app:menu="@menu/admin_bottom_menu"
+            app:itemIconTint="@color/nav_item_color"
+            app:itemTextColor="@color/nav_item_color"
+            />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

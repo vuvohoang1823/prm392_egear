@@ -24,6 +24,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:tint="#FF7F3E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/RoundedImageView"
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/button_background"
                 android:text="All"
                 android:textColor="@color/black" />
 
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/button_background"
                 android:text="Laptop"
                 android:textColor="@color/black" />
 
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/button_background"
                 android:text="Tablet"
                 android:textColor="@color/black" />
 
@@ -79,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/button_background"
                 android:text="Phone"
                 android:textColor="@color/black" />
 
@@ -89,12 +90,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@drawable/button_background"
                 android:text="Mouse"
                 android:textColor="@color/black" />
 
         </LinearLayout>
     </HorizontalScrollView>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"

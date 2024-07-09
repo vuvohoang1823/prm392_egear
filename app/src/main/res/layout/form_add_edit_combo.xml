@@ -66,12 +66,13 @@
                 app:layout_constraintStart_toStartOf="@id/scrollLayout"
                 app:layout_constraintTop_toBottomOf="@+id/input_combo_name" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addNewComboButton"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="20dp"
                 android:text="Add Combo"
+                android:background="@drawable/button_border"
                 app:layout_constraintEnd_toEndOf="@id/scrollLayout"
                 app:layout_constraintStart_toStartOf="@id/scrollLayout"
                 app:layout_constraintTop_toBottomOf="@+id/total_products_price" />

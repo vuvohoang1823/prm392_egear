@@ -13,8 +13,9 @@
         android:id="@+id/combo_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="4dp"
+        android:padding="10dp"
         android:src="@drawable/mouse_sample"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,9 +47,10 @@
         android:layout_width="62dp"
         android:layout_height="56dp"
         android:layout_marginStart="192dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Percent_discount"
+        android:textColor="#604CC3"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/combo_image"
         app:layout_constraintTop_toTopOf="parent" />

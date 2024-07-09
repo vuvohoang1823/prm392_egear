@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         replaceFragment(new HomeFragment());
-        binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             int itemId = item.getItemId();

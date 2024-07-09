@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_action_home"
-        android:title="Home" />
+        android:title="Home"
+        app:iconTint="@color/nav_item_color" />
     <item
         android:id="@+id/combo"
         android:icon="@drawable/ic_action_combo"
-        android:title="Combo" />
+        android:title="Combo"
+        app:iconTint="@color/nav_item_color" />
     <item
         android:id="@+id/cart"
         android:icon="@drawable/ic_action_shopping_cart"
-        android:title="Cart" />
+        android:title="Cart"
+        app:iconTint="@color/nav_item_color" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_action_profile"
-        android:title="Profile" />
-
+        android:title="Profile"
+        app:iconTint="@color/nav_item_color" />
 </menu>

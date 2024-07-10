@@ -1,5 +1,6 @@
 package com.example.egear.admin.combo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +73,12 @@ public class ComboDetail extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
 
+        if (combo.getStatus().equals("DELETED")) {
+            btnDelete.setVisibility(View.GONE);
+        } else {
+            btnDelete.setVisibility(View.VISIBLE);
+        }
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,15 +91,7 @@ public class ComboDetail extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
-                String token = sharedPreferences.getString("accessToken", "");
-
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl("http://10.0.2.2:9999/api/v1/")
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                ComboService jsonPlaceholder = retrofit.create(ComboService.class);
-//                Call<Void> call = jsonPlaceholder.deleteCombo("Bearer " + token, combo.getId());
+                showDeleteConfirmationDialog(combo);
             }
         });
 
@@ -137,5 +137,49 @@ public class ComboDetail extends AppCompatActivity {
                 System.out.println("Error: " + t.getMessage());
             }
         });
+    }
+
+    private void deleteCombo(Combo combo) {
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("accessToken", "");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:9999/api/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ComboService comboService = retrofit.create(ComboService.class);
+        Call<Void> call = comboService.deleteCombo("Bearer " + token, combo.getId());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    System.out.println("Code: " + response.body());
+                    return;
+                }
+                Toast.makeText(ComboDetail.this, "Combo deleted successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    private void showDeleteConfirmationDialog(Combo combo) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Delete Combo")
+                .setMessage("Are you sure you want to delete this combo?")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Thực hiện chức năng xóa sản phẩm
+                        deleteCombo(combo);
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

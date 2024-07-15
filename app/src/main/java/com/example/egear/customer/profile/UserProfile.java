@@ -1,6 +1,8 @@
 package com.example.egear.customer.profile;
 
-public class UserProfile {
+import java.io.Serializable;
+
+public class UserProfile implements Serializable {
     private Long id;
     private String username;
     private String name;
@@ -9,11 +11,12 @@ public class UserProfile {
     private String phone;
     private String address;
     private String avatar_url;
+    private Address address_lng_lat;
 
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String username, String name, String description, String email, String phone, String address, String avatar_url) {
+    public UserProfile(Long id, String username, String name, String description, String email, String phone, String address, String avatar_url, Address address_lng_lat) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -22,6 +25,7 @@ public class UserProfile {
         this.phone = phone;
         this.address = address;
         this.avatar_url = avatar_url;
+        this.address_lng_lat = address_lng_lat;
     }
 
     public Long getId() {
@@ -88,6 +92,14 @@ public class UserProfile {
         this.avatar_url = avatar_url;
     }
 
+    public Address getAddress_lng_lat() {
+        return address_lng_lat;
+    }
+
+    public void setAddress_lng_lat(Address address_lng_lat) {
+        this.address_lng_lat = address_lng_lat;
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +
@@ -99,6 +111,7 @@ public class UserProfile {
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", avatar_url='" + avatar_url + '\'' +
+                ", address_lng_lat=" + address_lng_lat +
                 '}';
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.egear.MapActivity;
 import com.example.egear.R;
 import com.example.egear.auth.Login;
+import com.example.egear.customer.profile.Address;
 import com.example.egear.customer.profile.ProfileService;
 import com.example.egear.customer.profile.UserProfile;
 
@@ -32,6 +35,9 @@ public class ProfileFragment extends Fragment {
     private TextView profileName, profileEmail, profilePhone, profileAddress, profilePassword;
     private ImageView profileAvatar;
     private Button buttonLogout;
+    private UserProfile userProfile;
+
+    private static final String TAG = "ProfileFragment";
 
     @Nullable
     @Override
@@ -45,7 +51,7 @@ public class ProfileFragment extends Fragment {
         profileAddress = view.findViewById(R.id.textView6);
         profilePassword = view.findViewById(R.id.textView7);
         profileAvatar = view.findViewById(R.id.avatar);
-        buttonLogout = (Button) view.findViewById(R.id.logoutBtn);
+        buttonLogout = view.findViewById(R.id.logoutBtn);
 
         // Kích hoạt chế độ marquee cho TextView hiển thị địa chỉ
         profileAddress.setSelected(true);
@@ -71,6 +77,17 @@ public class ProfileFragment extends Fragment {
             startActivity(intent);
         });
 
+        // Xử lý sự kiện khi người dùng nhấn vào profileAddress
+        profileAddress.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MapActivity.class);
+            if (userProfile != null && userProfile.getAddress_lng_lat() != null) {
+                intent.putExtra("latitude", userProfile.getAddress_lng_lat().getLatitude());
+                intent.putExtra("longitude", userProfile.getAddress_lng_lat().getLongitude());
+            }
+            startActivity(intent);
+        });
+
+
         return view;
     }
 
@@ -94,8 +111,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
                 if (response.isSuccessful()) {
-                    UserProfile userProfile = response.body();
+                    userProfile = response.body();
                     if (userProfile != null) {
+                        // Log thông tin user profile
+                        Log.d(TAG, "UserProfile: " + userProfile.toString());
+                        if (userProfile.getAddress_lng_lat() != null) {
+                            Log.d(TAG, "Latitude: " + userProfile.getAddress_lng_lat().getLatitude());
+                            Log.d(TAG, "Longitude: " + userProfile.getAddress_lng_lat().getLongitude());
+                        }
+
                         // Cập nhật các TextView với dữ liệu lấy từ API
                         profileName.setText(userProfile.getName());
                         profileEmail.setText(userProfile.getEmail());
@@ -113,7 +137,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserProfile> call, Throwable t) {
-                System.out.println(t.getMessage());
+                Log.e(TAG, "API call failed: " + t.getMessage());
             }
         });
     }

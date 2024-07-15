@@ -36,7 +36,10 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.playServicesMaps)
+    implementation(libs.playServicesLocation)
+    implementation(libs.androidMapsUtils)
+    implementation(libs.volley)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
